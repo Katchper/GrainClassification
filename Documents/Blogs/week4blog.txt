@@ -1,0 +1,27 @@
+Week 4:
+I am currently working on getting accurate colour data for my machine learning model to use later. 
+
+I need to get this data swiftly and identify the grain ideally in under a second to be used for industrial purposes. 
+
+I need a list of possible features and points of interest to gather data from. 
+
+Currently the main 3 I have are:
+
+- Colour: by getting sample points on the grain I can retrieve a colour value and by using machine learning teach the model 
+	which colour is closest to which type of grain.
+	
+- Shape: the grains are different in shape and I can obtain an outline by using computer vision techniques, the simplest 
+	being contour detection. Using the outline I can calculate how close this shape is to a circle and in the machine 
+	learning model determine what 
+	
+- Area: this is the least impactful because the area can be different depending on the camera location. Even though with 
+	training data I will be able to identify the sizes closest to a type of grain, the camera location is what impact 
+	this data the most. The camera usually will not be in a constant location and will be prone to even slight movements 
+	disrupting the data. This is a simple calculation which I can use for early testing. Since this could be a good data 
+	point I a solution to the problem of camera movements would be to instead of training the area before, to train the 
+	area actively as the machine learning model is working. 
+	
+- Length – Width or aspect ratio: This is a data point that simply gets the length of the grain and puts it up against the
+	width in a ratio value. This is a value not affected by camera movements or changes in the image. 
+	
+- Key feature - hairy ends: Classifying wholegrain can be improved with the addition of detecting the hair on the ends of the grain. 

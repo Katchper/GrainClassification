@@ -1,0 +1,2 @@
+WEKA arff FILE SETUP: https://cs.waikato.ac.nz/~ml/weka/arff.html
+weka python tutorial: https://www.educba.com/weka-python/
