@@ -12,10 +12,11 @@ import numpy as np
 # do machine learning things
 # use one of the test images to see whether it works
 
-file_dir = "C:/Users/Katch/Desktop/Major Project/grain photos/groat1/"
+file_dir = "C:/Users/Katch/Desktop/grain photos/groat1/"
 images = os.listdir(file_dir)
 
-
+# this method will read a file path and image name and return a list of all the grain images within
+# the image as an array.
 def read_image(file_path, image_path):
     # binary image
     original_image = cv2.imread(file_path + image_path, cv2.IMREAD_GRAYSCALE)
@@ -51,7 +52,7 @@ def read_image(file_path, image_path):
 
     return grain_list
 
-
+# go through every image in the folder to return a final array of all the images.
 def getDataSet(images, data):
     data_set = []
     for img in images:
@@ -59,7 +60,7 @@ def getDataSet(images, data):
         data_set.extend(read_image(file_dir, img))
     return data_set
 
-
+# get all the images and display 3 example grains.
 def testDataSet():
     training_data = getDataSet(images, 'groats')
 
@@ -71,8 +72,28 @@ def testDataSet():
     cv2.destroyAllWindows()
     print(training_data)
 
+# get one grains colour values and return it.
+# it currently gets the centre.
+def getGrainValues(images_test):
+    for image in images_test:
+        height, width, _ = image.shape
+        # put area of image into list
+        area = height * width
+        area_list = []
+        area_list.append(area)
+        # get the centre of the image
+    return 0
 
-testDataSet()
+# a function used for testing
+def testImage():
+    images_test = read_image(file_dir, "21QC_002.tif")
+    for image in images_test:
+        height, width, _ = image.shape
+
+
+
+
+
 # for each image in a folder
 # get an image, get all the coordinates for every individual grain for the image
 # for each grain in the array of grains

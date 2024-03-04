@@ -2,8 +2,8 @@ import cv2
 import numpy as np
 
 # Load image
-original_image = cv2.imread("C:/Users/Katch/Desktop/Major Project/grain photos/groat3/21QC_270.tif", cv2.IMREAD_GRAYSCALE)
-colour_image = cv2.imread("C:/Users/Katch/Desktop/Major Project/grain photos/groat3/21QC_270.tif")
+original_image = cv2.imread("C:/Users/Katch/Desktop/grain photos/groat3/21QC_270.tif", cv2.IMREAD_GRAYSCALE)
+colour_image = cv2.imread("C:/Users/Katch/Desktop/grain photos/groat3/21QC_270.tif")
 cropped_image2 = colour_image[1230:3400, 160:2350]
 #dst2 = cv2.resize(cropped_image2, None, fx = 4, fy = 4, interpolation = cv2.INTER_CUBIC)
 

@@ -1,0 +1,9 @@
+@relation ImageDataset
+
+@attribute red numeric
+@attribute blue numeric
+@attribute green numeric
+@attribute area numeric
+@attribute class {wholegrain, groat, broken}
+
+@data

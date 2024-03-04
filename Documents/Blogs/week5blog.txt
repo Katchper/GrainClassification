@@ -1,0 +1,16 @@
+Week 5:
+
+Colour Space Research:
+HSV vs RGB
+RGB is the collection of 3 colour levels for a pixel from 0 - 255 for the R, G and B.
+
+HSV is different in where the H is Hue, S is satuation and V is value or brightness.
+This makes it easier for detecting specific colour ranges in any lighting conditions because the hue
+is seperated from the other two dictating the brightness/darkness of the pixel.
+Hue is 0-360 with the colour spectrum represented in a circle.
+
+In openCV these are different with, hue range being [0,179], saturation range is [0,255], and value range is [0,255]
+
+
+HSV can be observed to look for specific colour hue ranges within the image while RGB will be used more specifically
+for hard machine learning
