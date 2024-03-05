@@ -1,34 +1,22 @@
 import cv2
 import os
 import numpy as np
-
-# Read the original image
-
-
-# get file directory
-# get all image names within the directory
-# create a method which returns a list of images from one main image
-# create a method which loops through all the images within the file to obtain a final list
-# do machine learning things
-# use one of the test images to see whether it works
-
-file_dir = "C:/Users/Katch/Desktop/grain photos/groat1/"
-images = os.listdir(file_dir)
+from Code.Prototype.MainBuild.trainingDataClass import TrainingData
 
 # this method will read a file path and image name and return a list of all the grain images within
 # the image as an array.
-def read_image(file_path, image_path):
+def read_image(file_path, image_path, grain_name):
     # binary image
     original_image = cv2.imread(file_path + image_path, cv2.IMREAD_GRAYSCALE)
     cropped_image = original_image[1230:3400, 160:2350]
-    dst = cv2.resize(cropped_image, None, fx=1, fy=1, interpolation=cv2.INTER_CUBIC)
+
     # colour image
     colour_image = cv2.imread(file_path + image_path)
     cropped_image2 = colour_image[1230:3400, 160:2350]
-    dst2 = cv2.resize(cropped_image2, None, fx=1, fy=1, interpolation=cv2.INTER_CUBIC)
+    HSV_image = cv2.cvtColor(cropped_image2, cv2.COLOR_BGR2HSV)
 
     # increase contrast
-    out = cv2.addWeighted(dst, 1, dst, 0, 0)
+    out = cv2.addWeighted(cropped_image, 1, cropped_image, 0, 0)
     # apply a gaussian
     blur = cv2.GaussianBlur(out, (5, 5), 0)
     # do a otsu binary threshold
@@ -37,32 +25,41 @@ def read_image(file_path, image_path):
     # get contours
     contours, _ = cv2.findContours(th4, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     grain_list = []
+    area_list = []
+    colour_list = []
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
         # Filter out small noise (adjust the threshold as needed)
         if w * h > 1000:
-            extracted_segment = cropped_image2[y:y + h, x:x + w].copy()
-            grain_list.append(extracted_segment)
-            cv2.rectangle(cropped_image2, (x,y), (x+w,y+h), (0,0,255), 4)
-
+            # adds the area and colour to the lists
+            area_list.append(w * h)
+            colour_list.append(HSV_image[y+round(h/2), x+round(w/2)])
+            grain_list.append(grain_name)
+            #draw dot at each centre point
+            #cv2.circle(cropped_image2, (x+round(w/2), y+round(h/2)), 1, (0,0,255), 4)
+            # here i get the contour of the grain and workout the true area and center colour
+            #extracted_segment = cropped_image2[y:y + h, x:x + w].copy()
+            #grain_list.append(extracted_segment)
+            #cv2.rectangle(cropped_image2, (x,y), (x+w,y+h), (0,0,255), 4)
+    #print(colour_list)
     #cv2.namedWindow('Grain Detection', cv2.WINDOW_NORMAL)
     #cv2.imshow('Grain Detection', cropped_image2)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
 
-    return grain_list
+    return colour_list, area_list, grain_list
 
 # go through every image in the folder to return a final array of all the images.
 def getDataSet(images, data):
     data_set = []
     for img in images:
         print('Completed image')
-        data_set.extend(read_image(file_dir, img))
+        data_set.extend(read_image(data, img))
     return data_set
 
 # get all the images and display 3 example grains.
 def testDataSet():
-    training_data = getDataSet(images, 'groats')
+    training_data = getDataSet('groats')
 
     cv2.imshow('grain1', training_data[2])
     cv2.imshow('grain2', training_data[2022])
@@ -84,33 +81,6 @@ def getGrainValues(images_test):
         # get the centre of the image
     return 0
 
-# a function used for testing
-def testImage():
-    images_test = read_image(file_dir, "21QC_002.tif")
-    for image in images_test:
-        height, width, _ = image.shape
+def grainContour(image):
+    return
 
-
-
-
-
-# for each image in a folder
-# get an image, get all the coordinates for every individual grain for the image
-# for each grain in the array of grains
-
-# get a contour of the grain, remove the background
-
-# obtain the HSV colour values for each pixel within the grain.
-# counter increase for each pixel - final count = area
-# calculate the average HSV colour for the grain
-
-# place the area and colour into 2 separate arrays.
-
-# what features/information can help distinguish between grain types:
-
-# area/size, colour,
-# circularity & shape,
-# common features like the hairs on wholegrain.
-
-# make a bell curve graph for the areas, colours, circularity value.
-# Show difference between grain types

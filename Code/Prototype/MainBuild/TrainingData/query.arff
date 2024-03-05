@@ -1,0 +1,15 @@
+@RELATION ImageDataset
+
+@ATTRIBUTE hue NUMERIC
+@ATTRIBUTE saturation NUMERIC
+@ATTRIBUTE value NUMERIC
+@ATTRIBUTE area NUMERIC
+@ATTRIBUTE class {wholegrain, groats, broken}
+
+@DATA
+22, 78, 192, 3751, wholegrain
+19, 99, 141, 4323, wholegrain
+20, 97, 145, 2700, groats
+25, 79, 168, 3026, groats
+24, 82, 180, 3080, broken
+15, 117, 76, 2485, broken
