@@ -6,7 +6,9 @@ def random_line(fname):
     return random.choice(lines)
 
 
-def generateQueryFile():
+# takes data from the training data file and gets 200 datapoints to test with
+
+def generateQueryFile(colour_list, area_list):
     file_name = "TrainingData/query.arff"
     data_file = "TrainingData/training_data.arff"
     file = open(file_name, "w")
@@ -30,4 +32,4 @@ def generateQueryFile():
     file.close()
 
 
-generateQueryFile()
+#generateQueryFile()

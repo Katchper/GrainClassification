@@ -7,8 +7,8 @@ import numpy as np
 
 # HSV value ranges are 0-179, 0-255, 0-255
 # to check on online colour picker multiply H by 2, divide the other 2 by 2.55
-def createARFF(colour_list, area_list, grain_list):
-    file = open("TrainingData/training_data.arff", "w")
+def createARFF(file_dir, colour_list, area_list, grain_list):
+    file = open(file_dir, "w")
     file.write("@RELATION ImageDataset\n")
     file.write("\n")
     file.write("@ATTRIBUTE hue NUMERIC\n")

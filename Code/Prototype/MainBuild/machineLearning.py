@@ -2,10 +2,10 @@ import weka.core.jvm as jvm
 from weka.core.converters import Loader
 from weka.classifiers import Classifier
 
-from Code.Prototype.MainBuild.loadRandomData import generateQueryFile
+#from Code.Prototype.MainBuild.FileMethods.loadRandomData import generateQueryFile
 
 print("generating random query file")
-generateQueryFile()
+#generateQueryFile()
 print("done")
 jvm.start(max_heap_size="512m")
 

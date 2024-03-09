@@ -1,8 +1,7 @@
 import cv2
 import os
-import numpy as np
 
-from Code.Prototype.MainBuild.arffBuilder import createARFF
+from Code.Prototype.MainBuild.FileMethods.arffBuilder import createARFF
 from Code.Prototype.MainBuild.imageProcessing import read_image
 from Code.Prototype.MainBuild.trainingDataClass import TrainingData
 
@@ -45,7 +44,7 @@ for file in training_list:
         training_grain_name.extend(names)
 
 # using the lists, create an arff file containing that data
-createARFF(training_colours, training_sizes, training_grain_name)
+createARFF("TrainingData/training_data.arff", training_colours, training_sizes, training_grain_name)
 
 # a function used for testing
 def testImage():
@@ -62,23 +61,7 @@ def testImage():
 
 
 #testImage()
-# for each image in a folder
-# get an image, get all the coordinates for every individual grain for the image
-# for each grain in the array of grains
 
-# get a contour of the grain, remove the background
-
-# obtain the HSV colour values for each pixel within the grain.
-# counter increase for each pixel - final count = area
-# calculate the average HSV colour for the grain
-
-# place the area and colour into 2 separate arrays.
-
-# what features/information can help distinguish between grain types:
-
-# area/size, colour,
-# circularity & shape,
-# common features like the hairs on wholegrain.
-
-# make a bell curve graph for the areas, colours, circularity value.
-# Show difference between grain types
+# step by step for part 1 of demo
+# get image from the testing file, extract the grains from the image.
+# for each grain get the values and parse them through the machine learning model
