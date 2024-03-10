@@ -86,28 +86,55 @@ def grainContour(image):
 
 def displayImage(file_path, image_path, predictions):
     original_image = cv2.imread(file_path + image_path, cv2.IMREAD_GRAYSCALE)
-    cropped_image = original_image[1230:3400, 160:2350]
+    cropped_image = original_image[1245:3400, 160:2350]
 
+    # colour image
     colour_image = cv2.imread(file_path + image_path)
-    cropped_image2 = colour_image[1230:3400, 160:2350]
+    cropped_image2 = colour_image[1245:3400, 160:2350]
+    HSV_image = cv2.cvtColor(cropped_image2, cv2.COLOR_BGR2HSV)
 
     out = cv2.addWeighted(cropped_image, 1, cropped_image, 0, 0)
-    # apply a gaussian
-    blur = cv2.GaussianBlur(out, (5, 5), 0)
-    # do a otsu binary threshold
-    ret3, th4 = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-    # get contours
-    contours, _ = cv2.findContours(th4, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # contrast + brightness changes
+    max = 255
+    brightness = int((325 - 0) * (255 - (-255)) / (510 - 0) + (-255))
+    contrast = int((254 - 0) * (127 - (-127)) / (254 - 0) + (-127))
+    alpha1 = (max - brightness) / 255
+    gamma1 = brightness
+    cal = cv2.addWeighted(out, alpha1, out, 0, gamma1)
+
+    Alpha = float(131 * (contrast + 127)) / (127 * (131 - contrast))
+    Gamma = 127 * (1 - Alpha)
+    cal = cv2.addWeighted(cal, Alpha, cal, 0, Gamma)
+
+    # apply a threshold
+    # ret3, th4 = cv2.threshold(cal, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+    ret, thresh1 = cv2.threshold(cal, 65, 255, cv2.THRESH_BINARY)
+    # binary image
+    contours, _ = cv2.findContours(thresh1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     count = 0
+    wgrain = 0
+    ggrain = 0
+    bgrain = 0
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
-        if w * h > 1000:
+        if cv2.contourArea(contour) > 500:
             cv2.circle(cropped_image2, (x + round(w / 2), y + round(h / 2)), 1, (0, 0, 255), 4)
             cv2.rectangle(cropped_image2, (x, y), (x + w, y + h), (0, 0, 255), 4)
             text = str(predictions[count])
             cv2.putText(cropped_image2, text, (x, y),cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+            if predictions[count] == "wholegrain":
+                wgrain+=1
+            elif predictions[count] == "groats":
+                ggrain+=1
+            else: bgrain += 1
             count+=1
+
+    print("Wholegrain count: " + str(wgrain))
+    print("Groats count: " + str(ggrain))
+    print("Broken count: " + str(bgrain))
+    print("Total = " + str(count))
     cv2.namedWindow('Grain Detection', cv2.WINDOW_NORMAL)
     cv2.imshow('Grain Detection', cropped_image2)
     cv2.waitKey(0)

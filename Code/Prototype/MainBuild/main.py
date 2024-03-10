@@ -1,7 +1,8 @@
 import cv2
 import os
 
-from Code.Prototype.MainBuild.FileMethods.arffBuilder import createARFF
+from Code.Prototype.MainBuild.FileMethods.arffBuilder import createARFF, writeLineToARFF
+from Code.Prototype.MainBuild.ImageMethods.huMoments import process_image
 from Code.Prototype.MainBuild.imageProcessing import read_image, displayImage
 from Code.Prototype.MainBuild.machineLearning import machineLearningAlgorithm
 from Code.Prototype.MainBuild.trainingDataClass import TrainingData
@@ -33,30 +34,22 @@ for file in training_list:
             images.append(item)
     file.image_list = images
 
+
 # for each file, get a list of colours, area and then make a list of the grain type based on the list size
 
 def generateTrainingData():
-    training_colours = []
-    training_sizes = []
-    training_grain_name = []
-    for file in training_list:
+    createARFF("TrainingData/training_data.arff")
+    for x in range(5):
         print("starting file")
-        for image in file.image_list:
-            colours, area, names = read_image(file.file_dir, image, file.grain_type)
-            print(len(colours))
-            training_colours.extend(colours)
-            training_sizes.extend(area)
-            training_grain_name.extend(names)
-    createARFF("TrainingData/training_data.arff", training_colours, training_sizes, training_grain_name)
-# using the lists, create an arff file containing that data
+        for image in training_list[x].image_list:
+            process_image("TrainingData/training_data.arff", image, training_list[x].file_dir, training_list[x].grain_type, False)
+
 
 def generateQueryForImage(index):
     print(training_list[5].image_list)
-    colours, area, names = read_image(training_list[5].file_dir, training_list[5].image_list[index], training_list[5].grain_type)
-    training_colours = colours
-    training_sizes = area
-    training_grain_name = names
-    createARFF("TrainingData/query.arff", training_colours, training_sizes, training_grain_name)
+    createARFF("TrainingData/query.arff")
+
+    process_image("TrainingData/query.arff", training_list[5].image_list[index], training_list[5].file_dir, training_list[5].grain_type, False)
     displayImage(training_list[5].file_dir, training_list[5].image_list[index], getMachineLearningPredictions())
 
 def getMachineLearningPredictions():
@@ -77,7 +70,7 @@ def testImage():
 
 
 #generateTrainingData()
-generateQueryForImage(0)
+generateQueryForImage(6)
 
 # step by step for part 1 of demo
 # get image from the testing file, extract the grains from the image.
