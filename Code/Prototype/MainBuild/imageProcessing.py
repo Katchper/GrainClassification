@@ -84,3 +84,31 @@ def getGrainValues(images_test):
 def grainContour(image):
     return
 
+def displayImage(file_path, image_path, predictions):
+    original_image = cv2.imread(file_path + image_path, cv2.IMREAD_GRAYSCALE)
+    cropped_image = original_image[1230:3400, 160:2350]
+
+    colour_image = cv2.imread(file_path + image_path)
+    cropped_image2 = colour_image[1230:3400, 160:2350]
+
+    out = cv2.addWeighted(cropped_image, 1, cropped_image, 0, 0)
+    # apply a gaussian
+    blur = cv2.GaussianBlur(out, (5, 5), 0)
+    # do a otsu binary threshold
+    ret3, th4 = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+    # get contours
+    contours, _ = cv2.findContours(th4, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    count = 0
+    for contour in contours:
+        x, y, w, h = cv2.boundingRect(contour)
+        if w * h > 1000:
+            cv2.circle(cropped_image2, (x + round(w / 2), y + round(h / 2)), 1, (0, 0, 255), 4)
+            cv2.rectangle(cropped_image2, (x, y), (x + w, y + h), (0, 0, 255), 4)
+            text = str(predictions[count])
+            cv2.putText(cropped_image2, text, (x, y),cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+            count+=1
+    cv2.namedWindow('Grain Detection', cv2.WINDOW_NORMAL)
+    cv2.imshow('Grain Detection', cropped_image2)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
