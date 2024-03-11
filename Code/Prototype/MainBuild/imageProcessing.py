@@ -121,7 +121,8 @@ def displayImage(file_path, image_path, predictions):
         x, y, w, h = cv2.boundingRect(contour)
         if cv2.contourArea(contour) > 500:
             cv2.circle(cropped_image2, (x + round(w / 2), y + round(h / 2)), 1, (0, 0, 255), 4)
-            cv2.rectangle(cropped_image2, (x, y), (x + w, y + h), (0, 0, 255), 4)
+            #cv2.rectangle(cropped_image2, (x, y), (x + w, y + h), (0, 0, 255), 4)
+            cv2.drawContours(cropped_image2, [contour], -1, (0, 0, 255), 3)
             text = str(predictions[count])
             cv2.putText(cropped_image2, text, (x, y),cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
             if predictions[count] == "wholegrain":
@@ -135,7 +136,7 @@ def displayImage(file_path, image_path, predictions):
     print("Groats count: " + str(ggrain))
     print("Broken count: " + str(bgrain))
     print("Total = " + str(count))
-    cv2.namedWindow('Grain Detection', cv2.WINDOW_NORMAL)
-    cv2.imshow('Grain Detection', cropped_image2)
+    cv2.namedWindow(image_path, cv2.WINDOW_NORMAL)
+    cv2.imshow(image_path, cropped_image2)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
