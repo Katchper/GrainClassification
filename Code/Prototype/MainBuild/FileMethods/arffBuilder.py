@@ -28,6 +28,7 @@ def createARFF(file_dir):
     file.write("@DATA\n")
     file.close()
 
+
 def writeLineToARFF(file_dir, hue, sat, val, area, perimeter, hue_moments, grain):
     file = open(file_dir, "a")
     # here is where the data goes in the format: red, blue, green, area, grainType
@@ -50,3 +51,43 @@ def writeLineToARFF(file_dir, hue, sat, val, area, perimeter, hue_moments, grain
     file.close()
 
 
+def writeArffFromArray(file_dir, hue, sat, val, area, perimeter, hue_moments, grain):
+    file = open(file_dir, "w")
+    file.write("@RELATION ImageDataset\n")
+    file.write("\n")
+    file.write("@ATTRIBUTE hue NUMERIC\n")
+    file.write("@ATTRIBUTE saturation NUMERIC\n")
+    file.write("@ATTRIBUTE value NUMERIC\n")
+    file.write("@ATTRIBUTE area NUMERIC\n")
+    file.write("@ATTRIBUTE perimeter NUMERIC\n")
+    file.write("@ATTRIBUTE hueMoment1 NUMERIC\n")
+    file.write("@ATTRIBUTE hueMoment2 NUMERIC\n")
+    file.write("@ATTRIBUTE hueMoment3 NUMERIC\n")
+    file.write("@ATTRIBUTE hueMoment4 NUMERIC\n")
+    file.write("@ATTRIBUTE hueMoment5 NUMERIC\n")
+    file.write("@ATTRIBUTE hueMoment6 NUMERIC\n")
+    file.write("@ATTRIBUTE hueMoment7 NUMERIC\n")
+    file.write("@ATTRIBUTE class {wholegrain, groats, broken}\n")
+    file.write("\n")
+    file.write("@DATA\n")
+
+    count = 0
+    for current in hue:
+        text = (str(current)
+                + ", " + str(sat[count])
+                + ", " + str(val[count])
+                + ", " + str(area[count])
+                + ", " + str(perimeter[count])
+                + ", " + str(hue_moments[count][0][0])
+                + ", " + str(hue_moments[count][1][0])
+                + ", " + str(hue_moments[count][2][0])
+                + ", " + str(hue_moments[count][3][0])
+                + ", " + str(hue_moments[count][4][0])
+                + ", " + str(hue_moments[count][5][0])
+                + ", " + str(hue_moments[count][6][0])
+                + ", " + grain[count]
+                + "\n")
+        file.write(text)
+        count += 1
+
+    file.close()

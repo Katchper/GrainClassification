@@ -1,0 +1,30 @@
+Presentation Order:
+
+Welcome to my mid project demo, my project is automatic grain classification
+My project uses computer vision, machine learning and data mining.
+
+I am using python for my project and the main packages im using for my project are openCV and Weka
+
+I have created a system which takes in the multiple folders of training data, I then go over these folders getting a list of images for every folder,
+Then for every image within the folder I run an image processing algorithm which performs operations on the image to make it easier to extract data from and then get a set of values
+
+- Show how i apply pre processing techniques to my image to make it easier to obtain a contour:
+This is how my first stage of image processing occurs, I get an image and using openCV I apply
+
+- I make use of a file type known as arff which stands for atribute relation file format and as you can see here (show arff) I can easily define the attributes, write them into the file, 
+and then use them within weka because arff is the standard file format for weka. The benefit of this is that I can store these training data files and reuse them within the machine learning algorithm for testing
+as gathering data from all the images is costly in processing power.
+
+I have very recently created a few changes to my data extraction program. I now randomly split the folders into 2 sets of data, one for creating the training data and one for generating a query file for testing at a ratio of 80/20.
+
+I then go over both sets of data, generating a training data file and a query file which takes a few minutes, then send it into the machine learning algorithm to train it and test the accuracy with the query file.
+Using my current data and a C4.5 decision tree, I am getting a relatively high accuracy percentage. (show graph detailing accuracy statistics)
+I am getting very high success with groats, I belive this is becuase the images containing groats are the clearest, with little to no overlapping of the grains as well as having almost 10 times the amount of training data for groats.
+One thing that confuses me is the broken grain statistic. I will be immediately investigating why this is significantly lower when it should realistically be the highest. My theory is that there are several overlapping grains, 
+and undetected ones which need the image processing to be improved.
+I am very pleased with the statistic I am getti7ng for groats as it is on average 97% accurate.
+
+
+My plan moving forwards will be researching and trying out more machine learning algorithms and tweaking with the options to hopefully achieve a better result.
+I will also be working on improving grain seperation, finding more key attributes to get more precise results and working out which attributes contribute the most towards increasing the accuracy of the machine learning algorithm
+and finally do real world testing using a JeVois camera looking at a conveyor belt.
