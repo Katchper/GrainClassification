@@ -124,12 +124,19 @@ def displayImage(file_path, image_path, predictions):
             #cv2.rectangle(cropped_image2, (x, y), (x + w, y + h), (0, 0, 255), 4)
             cv2.drawContours(cropped_image2, [contour], -1, (0, 0, 255), 3)
             text = str(predictions[count])
-            cv2.putText(cropped_image2, text, (x, y),cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
             if predictions[count] == "wholegrain":
                 wgrain+=1
             elif predictions[count] == "groats":
                 ggrain+=1
             else: bgrain += 1
+
+            if text == "wholegrain":
+                text = "w"
+            elif text == "groats":
+                text = "g"
+            else:
+                text = "b"
+            cv2.putText(cropped_image2, text, (x + round(w / 2), y + round(h / 2)),cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 3)
             count+=1
 
     print("Wholegrain count: " + str(wgrain))
@@ -140,3 +147,4 @@ def displayImage(file_path, image_path, predictions):
     cv2.imshow(image_path, cropped_image2)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+

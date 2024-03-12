@@ -194,3 +194,50 @@ def process_image_to_values(image_name, image_dir, grain_name):
             grain_name_list.append(grain_name)
 
     return hue_list, sat_list, val_list, area_list, outline_list, hm_list, grain_name_list
+
+def process_image_demo(image_name, image_dir):
+    original_image = cv2.imread(image_dir + image_name, cv2.IMREAD_GRAYSCALE)
+    cropped_image = original_image[1245:3400, 160:2350]
+
+    # colour image
+    colour_image = cv2.imread(image_dir + image_name)
+    cropped_image2 = colour_image[1245:3400, 160:2350]
+
+    out = cv2.addWeighted(cropped_image, 1, cropped_image, 0, 0)
+
+    # contrast + brightness changes
+    max = 255
+    brightness = int((325 - 0) * (255 - (-255)) / (510 - 0) + (-255))
+    contrast = int((254 - 0) * (127 - (-127)) / (254 - 0) + (-127))
+    alpha1 = (max - brightness) / 255
+    gamma1 = brightness
+    cal = cv2.addWeighted(out, alpha1, out, 0, gamma1)
+
+    Alpha = float(131 * (contrast + 127)) / (127 * (131 - contrast))
+    Gamma = 127 * (1 - Alpha)
+    cal = cv2.addWeighted(cal, Alpha, cal, 0, Gamma)
+
+    cv2.namedWindow("contrastbrightness", cv2.WINDOW_NORMAL)
+    cv2.imshow("contrastbrightness", out)
+
+    # apply a threshold
+    # ret3, th4 = cv2.threshold(cal, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+    ret, thresh1 = cv2.threshold(cal, 65, 255, cv2.THRESH_BINARY)
+    cv2.namedWindow("threshold", cv2.WINDOW_NORMAL)
+    cv2.imshow("threshold", thresh1)
+
+    # binary image
+    contours, _ = cv2.findContours(thresh1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    num_count = 0
+    for i, cnt in enumerate(contours):
+        x, y = cnt[0, 0]
+        x1, y1, w1, h1 = cv2.boundingRect(cnt)
+        if cv2.contourArea(contours[i]) > 500:
+            cv2.circle(cropped_image2, (x1 + round(w1 / 2), y1 + round(h1 / 2)), 1, (0, 255, 255), 5)
+            cv2.drawContours(cropped_image2, [cnt], -1, (0, 0, 255), 2)
+
+    cv2.namedWindow("contours", cv2.WINDOW_NORMAL)
+    cv2.imshow("contours", cropped_image2)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()

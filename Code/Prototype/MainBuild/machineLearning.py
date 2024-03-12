@@ -31,14 +31,14 @@ def machineLearningAlgorithm(training, query):
     #print("done")
     # output from testing the query file stats
     #print("# - actual - predicted - error - distribution")
-    correct = 0
-    total = 0
-    totalWhole = 0
-    totalBroken = 0
-    totalGroat = 0
-    detectedWhole = 0
-    detectedBroken = 0
-    detectedGroat = 0
+    correct = 1
+    total = 1
+    totalWhole = 1
+    totalBroken = 1
+    totalGroat = 1
+    detectedWhole = 1
+    detectedBroken = 1
+    detectedGroat = 1
 
     prediction_list = []
     for index, inst in enumerate(test):
@@ -70,10 +70,10 @@ def machineLearningAlgorithm(training, query):
         if pred == inst.get_value(inst.class_index):
             correct += 1
     accuracy = (correct/total) * 100
-    print("accuracy this iteration: %" + str(accuracy))
-    print("total wholewheat: " + str(totalWhole) + " detected wholewheat: " + str(detectedWhole) + " accuracy: " + str((detectedWhole/totalWhole) * 100) + "%")
-    print("total groats: " + str(totalGroat) + " detected groats: " + str(detectedGroat) + " accuracy: " + str((detectedGroat / totalGroat) * 100) + "%")
-    print("total broken: " + str(totalBroken) + " detected broken: " + str(detectedBroken) + " accuracy: " + str((detectedBroken / totalBroken) * 100) + "%")
+    #print("accuracy this iteration: %" + str(accuracy))
+    print("total wholewheat: " + str(totalWhole-1) + " detected wholewheat: " + str(detectedWhole-1) + " accuracy: " + str((detectedWhole/totalWhole) * 100) + "%")
+    print("total groats: " + str(totalGroat-1) + " detected groats: " + str(detectedGroat-1) + " accuracy: " + str((detectedGroat / totalGroat) * 100) + "%")
+    print("total broken: " + str(totalBroken-1) + " detected broken: " + str(detectedBroken-1) + " accuracy: " + str((detectedBroken / totalBroken) * 100) + "%")
     return prediction_list
 
 def stopJvm():

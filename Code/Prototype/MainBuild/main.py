@@ -18,11 +18,11 @@ from Code.Prototype.MainBuild.trainingDataClass import TrainingData
 # for each file, get a list of colours, area and then make a list of the grain type based on the list size
 
 def generateTrainingData():
-    createARFF("TrainingData/training_dataTemp.arff")
+    createARFF("FileMethods/TrainingData/training_dataTemp.arff")
     for x in range(5):
         print("starting file")
         for image in training_list[x].training_list:
-            process_image("TrainingData/training_dataTemp.arff", image, training_list[x].file_dir, training_list[x].grain_type, False)
+            process_image("FileMethods/TrainingData/training_dataTemp.arff", image, training_list[x].file_dir, training_list[x].grain_type, False)
     generateQueryForImage()
 
 
@@ -52,11 +52,17 @@ def generateListForImage(image):
     return process_image_to_values(image.image_name, image.file_dir, image.grain_type)
 
 def generateQueryForImage():
-    createARFF("TrainingData/query.arff")
+    createARFF("FileMethods/TrainingData/query.arff")
     for x in range(5):
         for image in training_list[x].query_list:
-            process_image("TrainingData/query.arff", image, training_list[x].file_dir, training_list[x].grain_type, False)
+            process_image("FileMethods/TrainingData/query.arff", image, training_list[x].file_dir, training_list[x].grain_type, False)
             displayImage(training_list[x].file_dir, image, getMachineLearningPredictions("TrainingData/training_data.arff", "TrainingData/query.arff"))
+
+def visualiseMachineLearning(training_data, query_data, x, image_name, training_list):
+    createARFF(query_data)
+    process_image(query_data, image_name, training_list[x].file_dir, training_list[x].grain_type, False)
+    displayImage(training_list[x].file_dir, image_name, getMachineLearningPredictions(training_data, query_data))
+
 
 def getMachineLearningPredictions(training, query):
     return machineLearningAlgorithm(training, query)
@@ -149,7 +155,7 @@ if __name__ =="__main__":
             perimeter_final = np.concatenate(perimeter_temp)
             hu_final = np.concatenate(hu_temp)
             grain_final = np.concatenate(grain_temp)
-            writeArffFromArray("TrainingData/training_dataTemp.arff", hue_final, sat_final, val_final, area_final, perimeter_final, hu_final, grain_final)
+            writeArffFromArray("FileMethods/TrainingData/training_dataTemp.arff", hue_final, sat_final, val_final, area_final, perimeter_final, hu_final, grain_final)
 
         with Pool() as pool:
             results = pool.map(generateListForImage, query_images)
@@ -161,7 +167,7 @@ if __name__ =="__main__":
             perimeter_final = np.concatenate(perimeter_temp)
             hu_final = np.concatenate(hu_temp)
             grain_final = np.concatenate(grain_temp)
-            writeArffFromArray("TrainingData/query_dataTemp.arff", hue_final, sat_final, val_final, area_final, perimeter_final, hu_final, grain_final)
+            writeArffFromArray("FileMethods/TrainingData/query_dataTemp.arff", hue_final, sat_final, val_final, area_final, perimeter_final, hu_final, grain_final)
 
         getMachineLearningPredictions("TrainingData/training_dataTemp.arff", "TrainingData/query_dataTemp.arff")
         toc = time.perf_counter()

@@ -9,7 +9,8 @@ I have created a system which takes in the multiple folders of training data, I 
 Then for every image within the folder I run an image processing algorithm which performs operations on the image to make it easier to extract data from and then get a set of values
 
 - Show how i apply pre processing techniques to my image to make it easier to obtain a contour:
-This is how my first stage of image processing occurs, I get an image and using openCV I apply
+This is how my first stage of image processing occurs, I get an image and using openCV I apply higher brightness, and a higher contour.
+I then
 
 - I make use of a file type known as arff which stands for atribute relation file format and as you can see here (show arff) I can easily define the attributes, write them into the file, 
 and then use them within weka because arff is the standard file format for weka. The benefit of this is that I can store these training data files and reuse them within the machine learning algorithm for testing
@@ -28,3 +29,11 @@ I am very pleased with the statistic I am getti7ng for groats as it is on averag
 My plan moving forwards will be researching and trying out more machine learning algorithms and tweaking with the options to hopefully achieve a better result.
 I will also be working on improving grain seperation, finding more key attributes to get more precise results and working out which attributes contribute the most towards increasing the accuracy of the machine learning algorithm
 and finally do real world testing using a JeVois camera looking at a conveyor belt.
+
+
+DEMONSTRATIONS:
+ demo 1 - show contour, show conversion to binary, show getting contour of grains.
+ demo 2 - show machine learning demo on test data
+ demo 3 - show machine learning % statistics
+ demo 4 - show the distribution of hues in a histogram
+ demo 5 - show the distribution of sizes in a histogram
