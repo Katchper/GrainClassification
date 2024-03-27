@@ -23,13 +23,15 @@ def createARFF(file_dir):
     file.write("@ATTRIBUTE hueMoment5 NUMERIC\n")
     file.write("@ATTRIBUTE hueMoment6 NUMERIC\n")
     file.write("@ATTRIBUTE hueMoment7 NUMERIC\n")
+    file.write("@ATTRIBUTE circularity NUMERIC\n")
+    file.write("@ATTRIBUTE rectangularity NUMERIC\n")
     file.write("@ATTRIBUTE class {wholegrain, groats, broken}\n")
     file.write("\n")
     file.write("@DATA\n")
     file.close()
 
 
-def writeLineToARFF(file_dir, hue, sat, val, area, perimeter, hue_moments, grain):
+def writeLineToARFF(file_dir, hue, sat, val, area, perimeter, hue_moments, circularity, rectangularity, grain):
     file = open(file_dir, "a")
     # here is where the data goes in the format: red, blue, green, area, grainType
     # example is: file.write("45, 32, 67, 1200, groat\n")
@@ -45,13 +47,15 @@ def writeLineToARFF(file_dir, hue, sat, val, area, perimeter, hue_moments, grain
             + ", " + str(hue_moments[4][0])
             + ", " + str(hue_moments[5][0])
             + ", " + str(hue_moments[6][0])
+            + ", " + str(circularity)
+            + ", " + str(rectangularity)
             + ", " + grain
             + "\n")
     file.write(text)
     file.close()
 
 
-def writeArffFromArray(file_dir, hue, sat, val, area, perimeter, hue_moments, grain):
+def writeArffFromArray(file_dir, hue, sat, val, area, perimeter, hue_moments, circularity, rectangularity, grain):
     file = open(file_dir, "w")
     file.write("@RELATION ImageDataset\n")
     file.write("\n")
@@ -67,6 +71,8 @@ def writeArffFromArray(file_dir, hue, sat, val, area, perimeter, hue_moments, gr
     file.write("@ATTRIBUTE hueMoment5 NUMERIC\n")
     file.write("@ATTRIBUTE hueMoment6 NUMERIC\n")
     file.write("@ATTRIBUTE hueMoment7 NUMERIC\n")
+    file.write("@ATTRIBUTE circularity NUMERIC\n")
+    file.write("@ATTRIBUTE rectangularity NUMERIC\n")
     file.write("@ATTRIBUTE class {wholegrain, groats, broken}\n")
     file.write("\n")
     file.write("@DATA\n")
@@ -85,6 +91,8 @@ def writeArffFromArray(file_dir, hue, sat, val, area, perimeter, hue_moments, gr
                 + ", " + str(hue_moments[count][4][0])
                 + ", " + str(hue_moments[count][5][0])
                 + ", " + str(hue_moments[count][6][0])
+                + ", " + str(circularity[count])
+                + ", " + str(rectangularity[count])
                 + ", " + grain[count]
                 + "\n")
         file.write(text)

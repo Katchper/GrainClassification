@@ -1,3 +1,5 @@
+import copy
+import math
 import time
 
 import cv2
@@ -5,40 +7,72 @@ import numpy as np
 
 from Code.Prototype.MainBuild.FileMethods.arffBuilder import writeLineToARFF
 
+def updateBrightnessContrast(grayCopy, bright, contr):
+    max = 255
+    brightnesstemp = int((bright - 0) * (255 - (-255)) / (510 - 0) + (-255))
+    contrasttemp = int((contr - 0) * (127 - (-127)) / (254 - 0) + (-127))
+    alpha12 = (max - brightnesstemp) / 255
+    gamma12 = brightnesstemp
+    caltest = cv2.addWeighted(grayCopy, alpha12, grayCopy, 0, gamma12)
+
+    Alpha22 = float(131 * (contrasttemp + 127)) / (127 * (131 - contrasttemp))
+    Gamma22 = 127 * (1 - Alpha22)
+    caltest = cv2.addWeighted(caltest, Alpha22, caltest, 0, Gamma22)
+    return caltest
 
 def process_image(file_dir, image_name, image_dir, grain_name, visual):
-    original_image = cv2.imread(image_dir + image_name, cv2.IMREAD_GRAYSCALE)
-    cropped_image = original_image[1245:3400, 160:2350]
+    min_area = 250
+    canny_thresh1 = 182
+    canny_thresh2 = 90
+    dilate_canny = 1
 
+    binary_thresh1 = 48
+
+    contrast1 = 51
+    brightness1 = 162
+
+    contrast2 = 101
+    brightness2 = 203
+    if grain_name == "wholegrain":
+        min_area = 500
+        canny_thresh1 = 115
+        canny_thresh2 = 208
+        dilate_canny = 1
+
+        binary_thresh1 = 57
+
+        contrast1 = 65
+        brightness1 = 190
+
+        contrast2 = 101
+        brightness2 = 203
+    kernel_2 = np.ones((2, 2), np.uint8)
+
+    original_image = cv2.imread(image_dir + image_name, cv2.IMREAD_GRAYSCALE)
+    cropped_image = original_image[1260:3400, 170:2350]
+    greyImage = copy.deepcopy(cropped_image)
     # colour image
     colour_image = cv2.imread(image_dir + image_name)
-    cropped_image2 = colour_image[1245:3400, 160:2350]
+    cropped_image2 = colour_image[1260:3400, 170:2350]
     HSV_image = cv2.cvtColor(cropped_image2, cv2.COLOR_BGR2HSV)
 
-    out = cv2.addWeighted(cropped_image, 1, cropped_image, 0, 0)
-
     # contrast + brightness changes
-    max = 255
-    brightness = int((325 - 0) * (255 - (-255)) / (510 - 0) + (-255))
-    contrast = int((254 - 0) * (127 - (-127)) / (254 - 0) + (-127))
-    alpha1 = (max - brightness) / 255
-    gamma1 = brightness
-    cal = cv2.addWeighted(out, alpha1, out, 0, gamma1)
+    modifImage1 = updateBrightnessContrast(greyImage, brightness1, contrast1)
+    modifImage2 = updateBrightnessContrast(greyImage, brightness2, contrast2)
 
-    Alpha = float(131 * (contrast + 127)) / (127 * (131 - contrast))
-    Gamma = 127 * (1 - Alpha)
-    cal = cv2.addWeighted(cal, Alpha, cal, 0, Gamma)
+    cannyEdge = cv2.Canny(modifImage1, canny_thresh1, canny_thresh2)
+    thickerEdge = cv2.dilate(cannyEdge, kernel_2, iterations=dilate_canny)
+    ret, threshold1 = cv2.threshold(modifImage2, binary_thresh1, 255, cv2.THRESH_BINARY)
+    imgTest = cv2.subtract(threshold1, thickerEdge)
 
     # apply a threshold
     # ret3, th4 = cv2.threshold(cal, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-    ret, thresh1 = cv2.threshold(cal, 65, 255, cv2.THRESH_BINARY)
     # binary image
-    contours, _ = cv2.findContours(thresh1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(imgTest, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     num_count = 0
     for i, cnt in enumerate(contours):
         x, y = cnt[0, 0]
-        if cv2.contourArea(contours[i]) > 500:
+        if cv2.contourArea(contours[i]) > min_area:
             mask = np.zeros_like(cropped_image2, dtype=np.uint8)
             cv2.drawContours(mask, [cnt], 0, (255, 255, 255), thickness=cv2.FILLED)
             result = cv2.bitwise_and(HSV_image, mask)
@@ -81,18 +115,22 @@ def process_image(file_dir, image_name, image_dir, grain_name, visual):
             area = cv2.contourArea(cnt)
             outline = cv2.arcLength(cnt, True)
             outline = round(outline, 2)
+
+            circularity = 4 * math.pi * (area / (outline * outline))
+            rect = cv2.minAreaRect(cnt)
+            rectangularity = area / (rect[1][0] * rect[1][1])
             if visual:
                 print("area: " + str(area) + " outline length: " + str(outline))
                 cv2.drawContours(cropped_image2, [cnt], -1, (0, 0, 255), 3)
                 cv2.putText(cropped_image2, f'Contour {num_count}', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6,
                             (255, 255, 0), 2)
                 print(f"\nHuMoments for Contour {count}:\n", hm)
-            writeLineToARFF(file_dir, total_hue, total_sat, total_val, area, outline, hm, grain_name)
+            writeLineToARFF(file_dir, total_hue, total_sat, total_val, area, outline, hm, circularity, rectangularity, grain_name)
 
     if visual:
         cv2.namedWindow('1', cv2.WINDOW_NORMAL)
         cv2.namedWindow('test', cv2.WINDOW_NORMAL)
-        cv2.imshow('1', thresh1)
+        cv2.imshow('1', imgTest)
         cv2.imshow('test', cropped_image2)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
@@ -102,37 +140,54 @@ def process_image(file_dir, image_name, image_dir, grain_name, visual):
 visual_testing = False
 
 
-# process_image(visual_testing)
+# process_image_to_values is the method main uses
 
 def process_image_to_values(image_name, image_dir, grain_name):
-    original_image = cv2.imread(image_dir + image_name, cv2.IMREAD_GRAYSCALE)
-    cropped_image = original_image[1245:3400, 160:2350]
+    min_area = 250
+    canny_thresh1 = 182
+    canny_thresh2 = 90
+    dilate_canny = 1
 
+    binary_thresh1 = 48
+
+    contrast1 = 51
+    brightness1 = 162
+
+    contrast2 = 101
+    brightness2 = 203
+    if grain_name == "wholegrain":
+        min_area = 500
+        canny_thresh1 = 115
+        canny_thresh2 = 208
+        dilate_canny = 1
+
+        binary_thresh1 = 57
+
+        contrast1 = 65
+        brightness1 = 190
+
+        contrast2 = 101
+        brightness2 = 203
+    kernel_2 = np.ones((2, 2), np.uint8)
+
+    original_image = cv2.imread(image_dir + image_name, cv2.IMREAD_GRAYSCALE)
+    cropped_image = original_image[1260:3400, 170:2350]
+    greyImage = copy.deepcopy(cropped_image)
     # colour image
     colour_image = cv2.imread(image_dir + image_name)
-    cropped_image2 = colour_image[1245:3400, 160:2350]
+    cropped_image2 = colour_image[1260:3400, 170:2350]
     HSV_image = cv2.cvtColor(cropped_image2, cv2.COLOR_BGR2HSV)
 
-    out = cv2.addWeighted(cropped_image, 1, cropped_image, 0, 0)
-
     # contrast + brightness changes
-    max = 255
-    brightness = int((325 - 0) * (255 - (-255)) / (510 - 0) + (-255))
-    contrast = int((254 - 0) * (127 - (-127)) / (254 - 0) + (-127))
-    alpha1 = (max - brightness) / 255
-    gamma1 = brightness
-    cal = cv2.addWeighted(out, alpha1, out, 0, gamma1)
+    modifImage1 = updateBrightnessContrast(greyImage, brightness1, contrast1)
+    modifImage2 = updateBrightnessContrast(greyImage, brightness2, contrast2)
 
-    Alpha = float(131 * (contrast + 127)) / (127 * (131 - contrast))
-    Gamma = 127 * (1 - Alpha)
-    cal = cv2.addWeighted(cal, Alpha, cal, 0, Gamma)
-
-    # apply a threshold
-    # ret3, th4 = cv2.threshold(cal, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-    ret, thresh1 = cv2.threshold(cal, 65, 255, cv2.THRESH_BINARY)
+    cannyEdge = cv2.Canny(modifImage1, canny_thresh1, canny_thresh2)
+    thickerEdge = cv2.dilate(cannyEdge, kernel_2, iterations=dilate_canny)
+    ret, threshold1 = cv2.threshold(modifImage2, binary_thresh1, 255, cv2.THRESH_BINARY)
+    imgTest = cv2.subtract(threshold1, thickerEdge)
     # binary image
-    contours, _ = cv2.findContours(thresh1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(imgTest, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     hue_list = []
     sat_list = []
@@ -141,10 +196,12 @@ def process_image_to_values(image_name, image_dir, grain_name):
     outline_list = []
     hm_list = []
     grain_name_list = []
+    circularity_list = []
+    rectangularity_list = []
 
     num_count = 0
     for i, cnt in enumerate(contours):
-        if cv2.contourArea(contours[i]) > 500:
+        if cv2.contourArea(contours[i]) > min_area:
             mask = np.zeros_like(cropped_image2, dtype=np.uint8)
             cv2.drawContours(mask, [cnt], 0, (255, 255, 255), thickness=cv2.FILLED)
             result = cv2.bitwise_and(HSV_image, mask)
@@ -185,15 +242,21 @@ def process_image_to_values(image_name, image_dir, grain_name):
             area = cv2.contourArea(cnt)
             outline = cv2.arcLength(cnt, True)
             outline = round(outline, 2)
+            circularity = 4 * math.pi * (area / (outline * outline))
+            rect = cv2.minAreaRect(cnt)
+            rectangularity = area / (rect[1][0] * rect[1][1])
+
             hue_list.append(total_hue)
             sat_list.append(total_sat)
             val_list.append(total_val)
             area_list.append(area)
             outline_list.append(outline)
             hm_list.append(hm)
+            rectangularity_list.append(rectangularity)
+            circularity_list.append(circularity)
             grain_name_list.append(grain_name)
 
-    return hue_list, sat_list, val_list, area_list, outline_list, hm_list, grain_name_list
+    return hue_list, sat_list, val_list, area_list, outline_list, hm_list, circularity_list, rectangularity_list, grain_name_list
 
 def process_image_demo(image_name, image_dir):
     original_image = cv2.imread(image_dir + image_name, cv2.IMREAD_GRAYSCALE)

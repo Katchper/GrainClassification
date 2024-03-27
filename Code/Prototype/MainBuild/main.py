@@ -97,7 +97,7 @@ if __name__ =="__main__":
     # go through each training list, generate the values, put into the arff file.
     # go through each query list, generate the values, put into arff.
     startJvm()
-    for x in range(20):
+    for x in range(10):
         tic = time.perf_counter()
         training_list = []
         training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/wholegrain/", "wholegrain"))
@@ -147,29 +147,33 @@ if __name__ =="__main__":
 
         with Pool() as pool:
             results = pool.map(generateListForImage, training_images)
-            hue_temp, sat_temp, val_temp, area_temp, perimeter_temp, hu_temp, grain_temp = zip(*results)
+            hue_temp, sat_temp, val_temp, area_temp, perimeter_temp, hu_temp, circ_temp, rect_temp, grain_temp = zip(*results)
             hue_final = np.concatenate(hue_temp)
             sat_final = np.concatenate(sat_temp)
             val_final = np.concatenate(val_temp)
             area_final = np.concatenate(area_temp)
             perimeter_final = np.concatenate(perimeter_temp)
             hu_final = np.concatenate(hu_temp)
+            circ_final = np.concatenate(circ_temp)
+            rect_final = np.concatenate(rect_temp)
             grain_final = np.concatenate(grain_temp)
-            writeArffFromArray("FileMethods/TrainingData/training_dataTemp.arff", hue_final, sat_final, val_final, area_final, perimeter_final, hu_final, grain_final)
+            writeArffFromArray("FileMethods/TrainingData/training_dataTemp.arff", hue_final, sat_final, val_final, area_final, perimeter_final, hu_final, circ_final, rect_final, grain_final)
 
         with Pool() as pool:
             results = pool.map(generateListForImage, query_images)
-            hue_temp, sat_temp, val_temp, area_temp, perimeter_temp, hu_temp, grain_temp = zip(*results)
+            hue_temp, sat_temp, val_temp, area_temp, perimeter_temp, hu_temp, circ_temp, rect_temp, grain_temp = zip(*results)
             hue_final = np.concatenate(hue_temp)
             sat_final = np.concatenate(sat_temp)
             val_final = np.concatenate(val_temp)
             area_final = np.concatenate(area_temp)
             perimeter_final = np.concatenate(perimeter_temp)
             hu_final = np.concatenate(hu_temp)
+            circ_final = np.concatenate(circ_temp)
+            rect_final = np.concatenate(rect_temp)
             grain_final = np.concatenate(grain_temp)
-            writeArffFromArray("FileMethods/TrainingData/query_dataTemp.arff", hue_final, sat_final, val_final, area_final, perimeter_final, hu_final, grain_final)
+            writeArffFromArray("FileMethods/TrainingData/query_dataTemp.arff", hue_final, sat_final, val_final, area_final, perimeter_final, hu_final, circ_final, rect_final, grain_final)
 
-        getMachineLearningPredictions("TrainingData/training_dataTemp.arff", "TrainingData/query_dataTemp.arff")
+        getMachineLearningPredictions("FileMethods/TrainingData/training_dataTemp.arff", "FileMethods/TrainingData/query_dataTemp.arff")
         toc = time.perf_counter()
         print(f"completed iteration in {toc - tic:0.4f} seconds")
     stopJvm()
