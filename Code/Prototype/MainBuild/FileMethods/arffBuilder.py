@@ -14,8 +14,8 @@ def createARFF(file_dir):
     file.write("@ATTRIBUTE hue NUMERIC\n")
     file.write("@ATTRIBUTE saturation NUMERIC\n")
     file.write("@ATTRIBUTE value NUMERIC\n")
-    file.write("@ATTRIBUTE area NUMERIC\n")
-    file.write("@ATTRIBUTE perimeter NUMERIC\n")
+    #file.write("@ATTRIBUTE area NUMERIC\n")
+    #file.write("@ATTRIBUTE perimeter NUMERIC\n")
     file.write("@ATTRIBUTE hueMoment1 NUMERIC\n")
     file.write("@ATTRIBUTE hueMoment2 NUMERIC\n")
     file.write("@ATTRIBUTE hueMoment3 NUMERIC\n")
@@ -32,15 +32,15 @@ def createARFF(file_dir):
     file.close()
 
 
-def writeLineToARFF(file_dir, hue, sat, val, area, perimeter, hue_moments, circularity, rectangularity, aspect, grain):
+def writeLineToARFF(file_dir, hue, sat, val, hue_moments, circularity, rectangularity, aspect, grain):
     file = open(file_dir, "a")
     # here is where the data goes in the format: red, blue, green, area, grainType
     # example is: file.write("45, 32, 67, 1200, groat\n")
     text = (str(hue)
             + ", " + str(sat)
             + ", " + str(val)
-            + ", " + str(area)
-            + ", " + str(perimeter)
+            #+ ", " + str(area)
+            #+ ", " + str(perimeter)
             + ", " + str(hue_moments[0][0])
             + ", " + str(hue_moments[1][0])
             + ", " + str(hue_moments[2][0])
@@ -57,15 +57,15 @@ def writeLineToARFF(file_dir, hue, sat, val, area, perimeter, hue_moments, circu
     file.close()
 
 
-def writeArffFromArray(file_dir, hue, sat, val, area, perimeter, hue_moments, circularity, rectangularity, aspect, grain):
+def writeArffFromArray(file_dir, hue, sat, val, hue_moments, circularity, rectangularity, aspect, grain):
     file = open(file_dir, "w")
     file.write("@RELATION ImageDataset\n")
     file.write("\n")
     file.write("@ATTRIBUTE hue NUMERIC\n")
     file.write("@ATTRIBUTE saturation NUMERIC\n")
     file.write("@ATTRIBUTE value NUMERIC\n")
-    file.write("@ATTRIBUTE area NUMERIC\n")
-    file.write("@ATTRIBUTE perimeter NUMERIC\n")
+    #file.write("@ATTRIBUTE area NUMERIC\n")
+    #file.write("@ATTRIBUTE perimeter NUMERIC\n")
     file.write("@ATTRIBUTE hueMoment1 NUMERIC\n")
     file.write("@ATTRIBUTE hueMoment2 NUMERIC\n")
     file.write("@ATTRIBUTE hueMoment3 NUMERIC\n")
@@ -85,8 +85,8 @@ def writeArffFromArray(file_dir, hue, sat, val, area, perimeter, hue_moments, ci
         text = (str(current)
                 + ", " + str(sat[count])
                 + ", " + str(val[count])
-                + ", " + str(area[count])
-                + ", " + str(perimeter[count])
+                #'+ ", " + str(area[count])
+                #+ ", " + str(perimeter[count])
                 + ", " + str(hue_moments[count][0][0])
                 + ", " + str(hue_moments[count][1][0])
                 + ", " + str(hue_moments[count][2][0])

@@ -192,8 +192,6 @@ def process_image_to_values(image_name, image_dir, grain_name):
     hue_list = []
     sat_list = []
     val_list = []
-    area_list = []
-    outline_list = []
     hm_list = []
     grain_name_list = []
     circularity_list = []
@@ -255,15 +253,13 @@ def process_image_to_values(image_name, image_dir, grain_name):
             hue_list.append(total_hue)
             sat_list.append(total_sat)
             val_list.append(total_val)
-            area_list.append(area)
-            outline_list.append(outline)
             hm_list.append(hm)
             rectangularity_list.append(rectangularity)
             circularity_list.append(circularity)
             aspect_ratio_list.append(aspect_ratio)
             grain_name_list.append(grain_name)
 
-    return hue_list, sat_list, val_list, area_list, outline_list, hm_list, circularity_list, rectangularity_list, aspect_ratio_list, grain_name_list
+    return hue_list, sat_list, val_list, hm_list, circularity_list, rectangularity_list, aspect_ratio_list, grain_name_list
 
 def process_image_demo(image_name, image_dir):
     original_image = cv2.imread(image_dir + image_name, cv2.IMREAD_GRAYSCALE)
