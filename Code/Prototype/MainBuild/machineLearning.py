@@ -24,7 +24,8 @@ def machineLearningAlgorithm(training, query):
     test = loader.load_file(query_dir)
     test.class_is_last()
     #print("training dataset")
-    cls = Classifier(classname="weka.classifiers.trees.J48", options=["-C", "0.3"])
+    cls = Classifier(classname="weka.classifiers.trees.RandomForest", options=["-I", "100", "-K", "0", "-S", "1"])
+
     #print(cls.options)
     cls.build_classifier(data)
     #print(cls)
@@ -78,4 +79,9 @@ def machineLearningAlgorithm(training, query):
 
 def stopJvm():
     jvm.stop()
+
+"""startJvm()
+machineLearningAlgorithm("FileMethods/TrainingData/training_dataTemp.arff","FileMethods/TrainingData/query_dataTemp.arff")
+stopJvm()"""
+
 

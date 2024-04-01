@@ -143,9 +143,13 @@ def contoursOutlines(finalImage):
     for i, cnt in enumerate(contours):
         x1, y1, w1, h1 = cv2.boundingRect(cnt)
         if cv2.contourArea(contours[i]) > 500:
-            #rect = cv2.minAreaRect(cnt)
-            #print(cv2.contourArea(cnt) / (rect[1][0] * rect[1][1]))
-            #print("----")
+            rect = cv2.minAreaRect(cnt)
+            if rect[1][0] > rect[1][1]:
+                print(rect[1][1]/rect[1][0])
+            else:
+                print(rect[1][0] / rect[1][1])
+            #print((rect[1][0], rect[1][1]))
+            print("----")
             count += 1
             cv2.drawContours(testImg, [cnt], -1, (0, 0, 255), thickness=cv2.FILLED)
             cv2.circle(testImg, (x1 + round(w1 / 2), y1 + round(h1 / 2)), 1, (0, 255, 255), 5)
