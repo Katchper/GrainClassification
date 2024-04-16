@@ -100,11 +100,11 @@ if __name__ =="__main__":
     for x in range(1):
         tic = time.perf_counter()
         training_list = []
-        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/wholegrain/", "wholegrain"))
-        #training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat1/", "groats"))
-        #training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat2/", "groats"))
-        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat3/", "groats"))
-        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken/", "broken"))
+        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/wholegrain/", "wholegrain", 0.90))
+        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat1/", "groats", 0.05))
+        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat2/", "groats", 0.05))
+        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat3/", "groats", 0.05))
+        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken/", "broken", 0.90))
 
         # training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/testing/", "?"))
 
@@ -118,7 +118,8 @@ if __name__ =="__main__":
                     images.append(item)
             file.image_list = images
             file.list_size = len(file.image_list)
-            file.training_size = round(file.list_size * 0.9)
+            file.training_size = round(file.list_size * file.training_percent)
+            print("taking out " + str(file.training_percent))
             # print(file.list_size)
             # print(file.training_size)
             # print(file.image_list)
@@ -147,6 +148,7 @@ if __name__ =="__main__":
 
         with Pool() as pool:
             results = pool.map(generateListForImage, training_images)
+            print(len(results))
             hue_temp, sat_temp, val_temp, hu_temp, circ_temp, rect_temp, aspect_temp, grain_temp = zip(*results)
             hue_final = np.concatenate(hue_temp)
             sat_final = np.concatenate(sat_temp)
@@ -169,6 +171,7 @@ if __name__ =="__main__":
             rect_final = np.concatenate(rect_temp)
             grain_final = np.concatenate(grain_temp)
             aspect_final = np.concatenate(aspect_temp)
+            print(len(results))
             writeArffFromArray("FileMethods/TrainingData/query_dataTemp.arff", hue_final, sat_final, val_final, hu_final, circ_final, rect_final, aspect_final, grain_final)
 
         getMachineLearningPredictions("FileMethods/TrainingData/training_dataTemp.arff", "FileMethods/TrainingData/query_dataTemp.arff")

@@ -24,7 +24,7 @@ def machineLearningAlgorithm(training, query):
     test = loader.load_file(query_dir)
     test.class_is_last()
     #print("training dataset")
-    cls = Classifier(classname="weka.classifiers.trees.RandomForest", options=["-I", "100", "-K", "0", "-S", "1"])
+    cls = Classifier(classname="weka.classifiers.functions.MultilayerPerceptron", options=["-L","0.3","-M","0.2","-N","500","-V","0","-S","0","-E","20","-H","a"])
 
     #print(cls.options)
     cls.build_classifier(data)
