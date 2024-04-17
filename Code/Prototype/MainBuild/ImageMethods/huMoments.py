@@ -143,6 +143,7 @@ visual_testing = False
 # process_image_to_values is the method main uses
 
 def process_image_to_values(image_name, image_dir, grain_name):
+    ticcy = time.perf_counter()
     min_area = 250
     canny_thresh1 = 182
     canny_thresh2 = 90
@@ -200,6 +201,7 @@ def process_image_to_values(image_name, image_dir, grain_name):
 
     num_count = 0
     for i, cnt in enumerate(contours):
+        print(len(contours))
         if cv2.contourArea(contours[i]) > min_area:
             mask = np.zeros_like(cropped_image2, dtype=np.uint8)
             cv2.drawContours(mask, [cnt], 0, (255, 255, 255), thickness=cv2.FILLED)
@@ -258,7 +260,8 @@ def process_image_to_values(image_name, image_dir, grain_name):
             circularity_list.append(circularity)
             aspect_ratio_list.append(aspect_ratio)
             grain_name_list.append(grain_name)
-
+    toccy = time.perf_counter()
+    print(f"grain done in {toccy - ticcy:0.4f} seconds")
     return hue_list, sat_list, val_list, hm_list, circularity_list, rectangularity_list, aspect_ratio_list, grain_name_list
 
 def process_image_demo(image_name, image_dir):

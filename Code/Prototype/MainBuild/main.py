@@ -100,11 +100,13 @@ if __name__ =="__main__":
     for x in range(1):
         tic = time.perf_counter()
         training_list = []
-        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/wholegrain/", "wholegrain", 0.90))
+        """training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/wholegrain/", "wholegrain", 0.90))
         training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat1/", "groats", 0.05))
         training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat2/", "groats", 0.05))
         training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat3/", "groats", 0.05))
-        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken/", "broken", 0.90))
+        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken/", "broken", 0.90))"""
+
+        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/testing/", "groats", 1))
 
         # training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/testing/", "?"))
 
@@ -160,7 +162,7 @@ if __name__ =="__main__":
             aspect_final = np.concatenate(aspect_temp)
             writeArffFromArray("FileMethods/TrainingData/training_dataTemp.arff", hue_final, sat_final, val_final, hu_final, circ_final, rect_final, aspect_final, grain_final)
 
-        with Pool() as pool:
+        """with Pool() as pool:
             results = pool.map(generateListForImage, query_images)
             hue_temp, sat_temp, val_temp, hu_temp, circ_temp, rect_temp, aspect_temp, grain_temp = zip(*results)
             hue_final = np.concatenate(hue_temp)
@@ -173,7 +175,7 @@ if __name__ =="__main__":
             aspect_final = np.concatenate(aspect_temp)
             print(len(results))
             writeArffFromArray("FileMethods/TrainingData/query_dataTemp.arff", hue_final, sat_final, val_final, hu_final, circ_final, rect_final, aspect_final, grain_final)
-
+"""
         getMachineLearningPredictions("FileMethods/TrainingData/training_dataTemp.arff", "FileMethods/TrainingData/query_dataTemp.arff")
         toc = time.perf_counter()
         print(f"completed iteration in {toc - tic:0.4f} seconds")
