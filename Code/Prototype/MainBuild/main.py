@@ -96,17 +96,18 @@ if __name__ =="__main__":
 
     # go through each training list, generate the values, put into the arff file.
     # go through each query list, generate the values, put into arff.
+    training_percent1 = 0.4
+    training_percent2 = 0.1
+
     startJvm()
+    "for i in range(5):"
     for x in range(1):
         tic = time.perf_counter()
         training_list = []
-        """training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/wholegrain/", "wholegrain", 0.90))
-        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat1/", "groats", 0.05))
-        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat2/", "groats", 0.05))
-        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat3/", "groats", 0.05))
-        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken/", "broken", 0.90))"""
-
-        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/testing/", "groats", 1))
+        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/wholegrain/", "wholegrain", 0.8, 0.1))
+        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat/", "groats", 0.5, 0.1))
+        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken/", "broken", 0.9, 0.1))
+        training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken2/", "broken", 0.90, 0.1))
 
         # training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/testing/", "?"))
 
@@ -125,7 +126,7 @@ if __name__ =="__main__":
             # print(file.list_size)
             # print(file.training_size)
             # print(file.image_list)
-            file.query_size = file.list_size - file.training_size
+            file.query_size = round(file.list_size * file.query_percent)
             for x in range(file.training_size):
                 # print(len(file.image_list))
                 rand_img = file.image_list[randint(0, len(file.image_list) - 1)]
@@ -133,7 +134,11 @@ if __name__ =="__main__":
                 file.image_list.remove(rand_img)
                 file.training_list.append(rand_img)
                 # print(file.training_list)
-            file.query_list.extend(file.image_list)
+
+            for x in range(file.query_size):
+                rand_img = file.image_list[randint(0, len(file.image_list) - 1)]
+                file.image_list.remove(rand_img)
+                file.query_list.append(rand_img)
             # print(file.training_list)
             # print(file.query_list)
             # print("-------------")
@@ -150,35 +155,38 @@ if __name__ =="__main__":
 
         with Pool() as pool:
             results = pool.map(generateListForImage, training_images)
-            print(len(results))
-            hue_temp, sat_temp, val_temp, hu_temp, circ_temp, rect_temp, aspect_temp, grain_temp = zip(*results)
+            hue_temp, sat_temp, val_temp, hu_temp, circ_temp, circ2_temp, rect_temp, aspect_temp, compact_temp, grain_temp = zip(*results)
             hue_final = np.concatenate(hue_temp)
             sat_final = np.concatenate(sat_temp)
             val_final = np.concatenate(val_temp)
             hu_final = np.concatenate(hu_temp)
             circ_final = np.concatenate(circ_temp)
+            circ2_final = np.concatenate(circ2_temp)
             rect_final = np.concatenate(rect_temp)
             grain_final = np.concatenate(grain_temp)
             aspect_final = np.concatenate(aspect_temp)
-            writeArffFromArray("FileMethods/TrainingData/training_dataTemp.arff", hue_final, sat_final, val_final, hu_final, circ_final, rect_final, aspect_final, grain_final)
+            compact_final = np.concatenate(compact_temp)
+            writeArffFromArray("FileMethods/TrainingData/training_dataTemp.arff", hue_final, sat_final, val_final, hu_final, circ_final, circ2_final, rect_final, aspect_final, compact_final, grain_final)
 
-        """with Pool() as pool:
+        with Pool() as pool:
             results = pool.map(generateListForImage, query_images)
-            hue_temp, sat_temp, val_temp, hu_temp, circ_temp, rect_temp, aspect_temp, grain_temp = zip(*results)
+            hue_temp, sat_temp, val_temp, hu_temp, circ_temp, circ2_temp, rect_temp, aspect_temp, compact_temp, grain_temp = zip(*results)
             hue_final = np.concatenate(hue_temp)
             sat_final = np.concatenate(sat_temp)
             val_final = np.concatenate(val_temp)
             hu_final = np.concatenate(hu_temp)
             circ_final = np.concatenate(circ_temp)
+            circ2_final = np.concatenate(circ2_temp)
             rect_final = np.concatenate(rect_temp)
             grain_final = np.concatenate(grain_temp)
             aspect_final = np.concatenate(aspect_temp)
-            print(len(results))
-            writeArffFromArray("FileMethods/TrainingData/query_dataTemp.arff", hue_final, sat_final, val_final, hu_final, circ_final, rect_final, aspect_final, grain_final)
-"""
+            compact_final = np.concatenate(compact_temp)
+            writeArffFromArray("FileMethods/TrainingData/query_dataTemp.arff", hue_final, sat_final, val_final, hu_final, circ_final, circ2_final, rect_final, aspect_final, compact_final, grain_final)
+
         getMachineLearningPredictions("FileMethods/TrainingData/training_dataTemp.arff", "FileMethods/TrainingData/query_dataTemp.arff")
         toc = time.perf_counter()
         print(f"completed iteration in {toc - tic:0.4f} seconds")
+
     stopJvm()
 # step by step for part 1 of demo
 # get image from the testing file, extract the grains from the image.

@@ -9,10 +9,9 @@ from Code.Prototype.MainBuild.trainingDataClass import TrainingData
 
 training_list = []
 training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/wholegrain/", "wholegrain"))
-training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat1/", "groats"))
-training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat2/", "groats"))
-training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat3/", "groats"))
+training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat/", "groats"))
 training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken/", "broken"))
+training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken2/", "broken"))
 
 # training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/testing/", "?"))
 
@@ -52,5 +51,9 @@ for item in training_list:
     for image in item.query_list:
         query_images.append(ImageData(item.file_dir, image, item.grain_type))
 
-training_list[0].file_dir
-process_image_demo(training_list[0].image_list[0], training_list[0].file_dir)
+
+grainType = 3
+
+print(training_list[grainType].file_dir)
+
+process_image_demo(training_list[grainType].image_list[0], training_list[grainType].file_dir, training_list[grainType].grain_type)

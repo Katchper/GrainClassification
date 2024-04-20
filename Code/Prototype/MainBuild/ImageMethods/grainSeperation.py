@@ -25,6 +25,8 @@ brightness1 = 190
 contrast2 = 101
 brightness2 = 203
 
+max_area = 10000
+
 # canny edge detection thresholds
 # i need sliders for the contrast, brightness
 # the 2 threshold values
@@ -43,6 +45,10 @@ def update_erosion2(erosionTemp):
     erosion2 = erosionTemp
     updateScreen()
 
+def update_area(areaTemp):
+    global max_area
+    max_area = areaTemp
+    updateScreen()
 
 def update_contrast(contrast11):
     global contrast1
@@ -138,37 +144,40 @@ def updateBrightnessContrast(bright, contr):
 
 def contoursOutlines(finalImage):
     testImg = copy.deepcopy(colourCopy)
-    contours, _ = cv2.findContours(finalImage, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    eroded_final = cv2.erode(finalImage, kernel_2)
+    contours, _ = cv2.findContours(eroded_final, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     count = 0
+    print(len(contours))
     for i, cnt in enumerate(contours):
         x1, y1, w1, h1 = cv2.boundingRect(cnt)
-        if cv2.contourArea(contours[i]) > 500:
+        area = round(cv2.contourArea(contours[i]))
+        if  area > 500 and area < max_area:
             rect = cv2.minAreaRect(cnt)
-            if rect[1][0] > rect[1][1]:
+            """if rect[1][0] > rect[1][1]:
                 print(rect[1][1]/rect[1][0])
             else:
                 print(rect[1][0] / rect[1][1])
             #print((rect[1][0], rect[1][1]))
-            print("----")
+            print("----")"""
             count += 1
             cv2.drawContours(testImg, [cnt], -1, (0, 0, 255), thickness=cv2.FILLED)
             cv2.circle(testImg, (x1 + round(w1 / 2), y1 + round(h1 / 2)), 1, (0, 255, 255), 5)
     # print(count)
     #image4 = cv2.cvtColor(testImg, cv2.COLOR_BGR2RGB)
     cv2.imshow("final", testImg)
-    if 520 <= count <= 550:
-        """print(canny_thresh1, canny_thresh2, binary_thresh1, binary_thresh2, dilate_canny, erosion1, erosion2, contrast,
+    """if 520 <= count <= 550:
+        print(canny_thresh1, canny_thresh2, binary_thresh1, binary_thresh2, dilate_canny, erosion1, erosion2, contrast,
               brightness)
         print(count)"""
         #return canny_thresh1, canny_thresh2, binary_thresh1, binary_thresh2, dilate_canny, erosion1, erosion2, contrast, brightness, count
     #return 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 
-original_image = cv2.imread("C:/Users/Katch/Desktop/grain/wholegrain/21QC_007.tif", cv2.IMREAD_GRAYSCALE)
+original_image = cv2.imread("C:/Users/Katch/Desktop/grain/broken2/BrokenGroats001.tif", cv2.IMREAD_GRAYSCALE)
 cropped_image = original_image[1260:3400, 170:2350]
 grayCopy = copy.deepcopy(cropped_image)
 # colour image
-colour_image = cv2.imread("C:/Users/Katch/Desktop/grain/wholegrain/21QC_007.tif")
+colour_image = cv2.imread("C:/Users/Katch/Desktop/grain/broken2/BrokenGroats001.tif")
 cropped_image2 = colour_image[1260:3400, 170:2350]
 
 colourCopy = copy.deepcopy(cropped_image2)
@@ -194,6 +203,7 @@ cv2.createTrackbar('Canny1', windowName, canny_thresh1, 500, update_threshold3)
 cv2.createTrackbar('Canny2', windowName,  canny_thresh2, 500, update_threshold4)
 cv2.createTrackbar('Dilation', windowName, dilate_canny, 5, update_dilation)
 cv2.createTrackbar('Thresh2', windowName,  binary_thresh2, 255, update_threshold2)
+cv2.createTrackbar('MaxArea', windowName,  max_area, 25000, update_area)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 

@@ -8,10 +8,9 @@ from Code.Prototype.MainBuild.trainingDataClass import TrainingData
 
 training_list = []
 training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/wholegrain/", "wholegrain"))
-training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat1/", "groats"))
-training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat2/", "groats"))
-training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat3/", "groats"))
+training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat/", "groats"))
 training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken/", "broken"))
+training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken2/", "broken"))
 
 # training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/testing/", "?"))
 
