@@ -1,5 +1,6 @@
 import copy
 import math
+import random
 import time
 
 import cv2
@@ -154,7 +155,7 @@ visual_testing = False
 
 # process_image_to_values is the method main uses
 
-def process_image_to_values(image_name, image_dir, grain_name):
+def process_image_to_list(image_name, image_dir, grain_name, is_training, range1):
     #ticcy = time.perf_counter()
     if grain_name == "wholegrain":
         max_area = 8000
@@ -199,6 +200,88 @@ def process_image_to_values(image_name, image_dir, grain_name):
         colour_image = cv2.imread(image_dir + image_name)
         cropped_image2 = colour_image[1240:3450, 160:2350]
 
+    hue_list = []
+    sat_list = []
+    val_list = []
+    hm_list = []
+    grain_name_list = []
+    circularity_list = []
+    circularity2_list = []
+    rectangularity_list = []
+    aspect_ratio_list = []
+    compact_list = []
+    #image augmentation
+    rand_range = 1
+    if is_training:
+        iterations = 1
+        if grain_name == "broken":
+            iterations = 3
+        if grain_name == "groats":
+            rand_range = random.uniform(0.0, 1.0)
+        if rand_range > 0.5:
+            for i in range(iterations):
+                colour_copy = copy.deepcopy(cropped_image)
+                grey_copy = copy.deepcopy(cropped_image2)
+
+                flip_value = random.randint(-1, 1)
+                img_flipped = cv2.flip(colour_copy, flip_value)
+                img_flipped2 = cv2.flip(grey_copy, flip_value)
+
+                scaled_size = random.uniform(1-0.09, 1+0.09)
+                stretch_size = random.uniform(1-0.09, 1+0.09)
+                stretch_axis = random.randint(0, 2)
+                if stretch_axis == 0:
+                    augmented_img = cv2.resize(img_flipped, None, fx=scaled_size, fy=stretch_size)
+                    augmented_img2 = cv2.resize(img_flipped2, None, fx=scaled_size, fy=stretch_size)
+                elif stretch_axis == 1:
+                    augmented_img = cv2.resize(img_flipped, None, fx=stretch_size, fy=scaled_size)
+                    augmented_img2 = cv2.resize(img_flipped2, None, fx=stretch_size, fy=scaled_size)
+                else:
+                    augmented_img = cv2.resize(img_flipped, None, fx=scaled_size, fy=scaled_size)
+                    augmented_img2 = cv2.resize(img_flipped2, None, fx=scaled_size, fy=scaled_size)
+
+                hue_1, sat_1, val_1, hm_1, circularity_1, circularity2_1, rectangularity_1, aspect_ratio_1, compact_1, grain_name_1 \
+                    = process_image_to_values(grain_name, augmented_img, augmented_img2, brightness1, brightness2, contrast1, contrast2, canny_thresh1, canny_thresh2, kernel_2, dilate_canny, binary_thresh1, min_area, max_area)
+                compact_list.extend(compact_1)
+                hue_list.extend(hue_1)
+                sat_list.extend(sat_1)
+                val_list.extend(val_1)
+                hm_list.extend(hm_1)
+                rectangularity_list.extend(rectangularity_1)
+                circularity_list.extend(circularity_1)
+                aspect_ratio_list.extend(aspect_ratio_1)
+                grain_name_list.extend(grain_name_1)
+                circularity2_list.extend(circularity2_1)
+
+    hue_1, sat_1, val_1, hm_1, circularity_1, circularity2_1, rectangularity_1, aspect_ratio_1, compact_1, grain_name_1 \
+        = process_image_to_values(grain_name, cropped_image, cropped_image2, brightness1, brightness2, contrast1, contrast2, canny_thresh1, canny_thresh2, kernel_2, dilate_canny, binary_thresh1, min_area, max_area)
+    compact_list.extend(compact_1)
+    hue_list.extend(hue_1)
+    sat_list.extend(sat_1)
+    val_list.extend(val_1)
+    hm_list.extend(hm_1)
+    rectangularity_list.extend(rectangularity_1)
+    circularity_list.extend(circularity_1)
+    aspect_ratio_list.extend(aspect_ratio_1)
+    grain_name_list.extend(grain_name_1)
+    circularity2_list.extend(circularity2_1)
+
+    #toccy = time.perf_counter()
+    #print(f"grain done in {toccy - ticcy:0.4f} seconds")
+    return hue_list, sat_list, val_list, hm_list, circularity_list, circularity2_list, rectangularity_list, aspect_ratio_list, compact_list, grain_name_list
+
+def process_image_to_values(grain_name, cropped_image, cropped_image2, brightness1, brightness2, contrast1, contrast2, canny_thresh1, canny_thresh2, kernel_2, dilate_canny, binary_thresh1, min_area, max_area):
+    hue_list = []
+    sat_list = []
+    val_list = []
+    hm_list = []
+    grain_name_list = []
+    circularity_list = []
+    circularity2_list = []
+    rectangularity_list = []
+    aspect_ratio_list = []
+    compact_list = []
+
     greyImage = copy.deepcopy(cropped_image)
     HSV_image = cv2.cvtColor(cropped_image2, cv2.COLOR_BGR2HSV)
 
@@ -219,21 +302,9 @@ def process_image_to_values(image_name, image_dir, grain_name):
         hull = cv2.convexHull(contours[i])
         hull_list.append(hull)
 
-
-    hue_list = []
-    sat_list = []
-    val_list = []
-    hm_list = []
-    grain_name_list = []
-    circularity_list = []
-    circularity2_list = []
-    rectangularity_list = []
-    aspect_ratio_list = []
-    compact_list = []
-
     num_count = 0
     for i, cnt in enumerate(contours):
-        #print(len(contours))
+        # print(len(contours))
         area_temp = round(cv2.contourArea(contours[i]))
         if min_area < area_temp < max_area:
             mask = np.zeros_like(cropped_image2, dtype=np.uint8)
@@ -279,15 +350,15 @@ def process_image_to_values(image_name, image_dir, grain_name):
             circularity = 4 * math.pi * (area / (outline * outline))
             rect = cv2.minAreaRect(cnt)
             if rect[1][0] > rect[1][1]:
-                aspect_ratio = rect[1][1]/rect[1][0]
+                aspect_ratio = rect[1][1] / rect[1][0]
             else:
-                aspect_ratio = rect[1][0]/rect[1][1]
+                aspect_ratio = rect[1][0] / rect[1][1]
 
             rectangularity = area / (rect[1][0] * rect[1][1])
 
             compactness = area / outline
 
-            (x,y), radius = cv2.minEnclosingCircle(cnt)
+            (x, y), radius = cv2.minEnclosingCircle(cnt)
             min_circle_area = math.pi * (int(radius) * int(radius))
 
             circleRatio = min_circle_area / area
@@ -302,9 +373,9 @@ def process_image_to_values(image_name, image_dir, grain_name):
             aspect_ratio_list.append(aspect_ratio)
             grain_name_list.append(grain_name)
             circularity2_list.append(circleRatio)
-    #toccy = time.perf_counter()
-    #print(f"grain done in {toccy - ticcy:0.4f} seconds")
+
     return hue_list, sat_list, val_list, hm_list, circularity_list, circularity2_list, rectangularity_list, aspect_ratio_list, compact_list, grain_name_list
+
 
 def process_image_demo(image_name, image_dir, grain_name):
     print(image_dir)
