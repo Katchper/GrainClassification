@@ -68,6 +68,7 @@ def process_image(file_dir, image_name, image_dir, grain_name, visual):
         cropped_image2 = colour_image[1240:3450, 160:2350]
     HSV_image = cv2.cvtColor(cropped_image2, cv2.COLOR_BGR2HSV)
 
+
     # contrast + brightness changes
     modifImage1 = updateBrightnessContrast(greyImage, brightness1, contrast1)
     modifImage2 = updateBrightnessContrast(greyImage, brightness2, contrast2)
@@ -156,7 +157,6 @@ visual_testing = False
 # process_image_to_values is the method main uses
 
 def process_image_to_list(image_name, image_dir, grain_name, is_training, range1):
-    #ticcy = time.perf_counter()
     if grain_name == "wholegrain":
         max_area = 8000
         min_area = 500
@@ -303,6 +303,7 @@ def process_image_to_values(grain_name, cropped_image, cropped_image2, brightnes
         hull_list.append(hull)
 
     num_count = 0
+    tic = time.perf_counter()
     for i, cnt in enumerate(contours):
         # print(len(contours))
         area_temp = round(cv2.contourArea(contours[i]))
@@ -312,26 +313,18 @@ def process_image_to_values(grain_name, cropped_image, cropped_image2, brightnes
             result = cv2.bitwise_and(HSV_image, mask)
             x1, y1, w, h = cv2.boundingRect(cnt)
             final_section = result[y1:y1 + h, x1:x1 + w]
-            total_hue = 0
-            total_sat = 0
-            total_val = 0
-            count = 0
-            for n in range(final_section.shape[0]):
-                for m in range(final_section.shape[1]):
-                    hue, saturation, value = final_section[n, m]
-                    if value != 0:
-                        count += 1
-                        total_hue += hue
-                        total_sat += saturation
-                        total_val += value
 
-            # print(result)
-            # cv2.imshow("f", result)
-            total_pixels = count
-            total_hue = total_hue / total_pixels
-            total_sat = total_sat / total_pixels
-            total_val = total_val / total_pixels
+            non_zero_pixels = np.count_nonzero(final_section[:, :, 2])
+            total_hue = np.sum(final_section[:, :, 0])
+            total_sat = np.sum(final_section[:, :, 1])
+            total_val = np.sum(final_section[:, :, 2])
 
+            if non_zero_pixels != 0:
+                total_hue /= non_zero_pixels
+                total_sat /= non_zero_pixels
+                total_val /= non_zero_pixels
+
+            #print(total_hue)
             num_count += 1
             moments = cv2.moments(cnt)
             hm = cv2.HuMoments(moments)
@@ -358,7 +351,7 @@ def process_image_to_values(grain_name, cropped_image, cropped_image2, brightnes
 
             compactness = area / outline
 
-            (x, y), radius = cv2.minEnclosingCircle(cnt)
+            _, radius = cv2.minEnclosingCircle(cnt)
             min_circle_area = math.pi * (int(radius) * int(radius))
 
             circleRatio = min_circle_area / area
@@ -373,6 +366,8 @@ def process_image_to_values(grain_name, cropped_image, cropped_image2, brightnes
             aspect_ratio_list.append(aspect_ratio)
             grain_name_list.append(grain_name)
             circularity2_list.append(circleRatio)
+    toc = time.perf_counter()
+    print(f"completed iteration in {toc - tic:0.4f} seconds")
 
     return hue_list, sat_list, val_list, hm_list, circularity_list, circularity2_list, rectangularity_list, aspect_ratio_list, compact_list, grain_name_list
 
@@ -460,3 +455,6 @@ def process_image_demo(image_name, image_dir, grain_name):
     cv2.imshow("contours", cropped_image2)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+
+process_image_to_list("broken over 1_5mm001.tif", "C:/Users/Katch/Desktop/grain/broken/", "wholegrain", True, 0.1)
