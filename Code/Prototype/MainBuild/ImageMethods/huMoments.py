@@ -357,7 +357,7 @@ def process_image_to_values(grain_name, cropped_image, cropped_image2, brightnes
             _, radius = cv2.minEnclosingCircle(cnt)
             min_circle_area = math.pi * (int(radius) * int(radius))
 
-            circleRatio = min_circle_area / area
+            circleRatio = area / min_circle_area
 
             compact_list.append(compactness)
             hue_list.append(total_hue)
