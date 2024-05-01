@@ -1,0 +1,101 @@
+total wholewheat: 5188 detected wholewheat: 5117 accuracy: 98.63172094815957%
+total groats: 9092 detected groats: 8649 accuracy: 95.12812053227758%
+total broken: 2102 detected broken: 1840 accuracy: 87.54160722776986%
+
+
+
+total wholewheat: 5032 detected wholewheat: 4985 accuracy: 99.0661633220743%
+total groats: 8970 detected groats: 8580 accuracy: 95.65265856649204%
+total broken: 2156 detected broken: 1894 accuracy: 87.85350023180342%
+
+
+taking out 0.8
+taking out 0.35
+taking out 0.9
+total wholewheat: 5074 detected wholewheat: 5010 accuracy: 98.73891625615764%
+total groats: 9416 detected groats: 8928 accuracy: 94.81788255282999%
+total broken: 2158 detected broken: 1897 accuracy: 87.91106993978694%
+
+taking out 0.8
+taking out 0.3
+taking out 0.9
+total wholewheat: 5063 detected wholewheat: 4991 accuracy: 98.5781990521327%
+total groats: 9206 detected groats: 8837 accuracy: 95.99217986314761%
+total broken: 2186 detected broken: 1877 accuracy: 85.87105624142661%
+
+
+taking out 0.8
+taking out 0.35
+taking out 0.9
+taking out 0.9
+total wholewheat: 4931 detected wholewheat: 4809 accuracy: 97.52635847526359%
+total groats: 9193 detected groats: 8543 accuracy: 92.9301718512073%
+total broken: 3346 detected broken: 3044 accuracy: 90.97699432327457%
+
+WITH MAX SIZE REMOVAL
+taking out 0.8
+taking out 0.5
+taking out 0.9
+taking out 0.9
+total wholewheat: 5088 detected wholewheat: 5010 accuracy: 98.4672823737473%
+total groats: 9461 detected groats: 8854 accuracy: 93.5848657789051%
+total broken: 3388 detected broken: 3063 accuracy: 90.41015048686928%
+
+
+Augmented data
+total wholewheat: 4943 detected wholewheat: 4867 accuracy: 98.46278317152104%
+total groats: 9092 detected groats: 8343 accuracy: 91.76289453425713%
+total broken: 3248 detected broken: 3033 accuracy: 93.38257925515543%
+completed iteration in 749.9546 seconds
+
+
+doubled augment + raised groats
+taking out 0.9
+taking out 0.6
+taking out 0.9
+taking out 0.9
+total wholewheat: 5092 detected wholewheat: 4965 accuracy: 97.5063813076772%
+total groats: 9136 detected groats: 8567 accuracy: 93.7725730546131%
+total broken: 3308 detected broken: 3010 accuracy: 90.9942580840133%
+
+increased augmentation ranges
+taking out 0.9
+taking out 0.55
+taking out 0.9
+taking out 0.9
+total wholewheat: 5111 detected wholewheat: 4899 accuracy: 95.85289514866979%
+total groats: 9124 detected groats: 8280 accuracy: 90.75068493150685%
+total broken: 3056 detected broken: 2879 accuracy: 94.2100098135427%
+
+taking out 0.9
+taking out 0.9
+taking out 0.9
+taking out 0.9
+total wholewheat: 4805 detected wholewheat: 4645 accuracy: 96.67082813150229%
+total groats: 9113 detected groats: 8673 accuracy: 95.17226245336843%
+total broken: 3462 detected broken: 3175 accuracy: 91.71238810280103%
+
+total wholewheat: 5121 detected wholewheat: 5038 accuracy: 98.3795392424834%
+total groats: 8943 detected groats: 8573 accuracy: 95.86314847942755%
+total broken: 3123 detected broken: 2838 accuracy: 90.87708066581305%
+
+Augmented wholegrain 2x
+broken 3x
+taking out 0.9
+taking out 0.8
+taking out 0.9
+taking out 0.9
+total wholewheat: 5166 detected wholewheat: 5085 accuracy: 98.43235920263209%
+total groats: 9082 detected groats: 8522 accuracy: 93.83463613343609%
+total broken: 3488 detected broken: 3238 accuracy: 92.83462310117511%
+285
+
+total wholewheat: 5246 detected wholewheat: 5182 accuracy: 98.78025538402898%
+total groats: 9206 detected groats: 8833 accuracy: 95.94873465841208%
+total broken: 3611 detected broken: 3282 accuracy: 90.89147286821705%
+285.4
+
+
+total wholewheat: 4903 detected wholewheat: 4763 accuracy: 97.14518760195759%
+total groats: 9210 detected groats: 8688 accuracy: 94.33286288133753%
+total broken: 3251 detected broken: 2974 accuracy: 91.48216482164821%

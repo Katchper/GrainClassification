@@ -1,0 +1,43 @@
+HSV
+taking out 0.8
+taking out 0.1
+taking out 0.9
+total wholewheat: 10207 detected wholewheat: 9905 accuracy: 97.04153605015674%
+total groats: 82345 detected groats: 74436 accuracy: 90.39540475554368%
+total broken: 2717 detected broken: 2333 accuracy: 85.8719646799117%
+completed iteration in 628.1771 seconds
+
+273 total
+
+rgb
+taking out 0.8
+taking out 0.1
+taking out 0.9
+total wholewheat: 10590 detected wholewheat: 10372 accuracy: 97.94164856954018%
+total groats: 82464 detected groats: 65911 accuracy: 79.9272418601831%
+total broken: 2482 detected broken: 2234 accuracy: 90.01208215867902%
+completed iteration in 662.4600 seconds
+
+267.8 total
+
+Ycrcb
+
+taking out 0.8
+taking out 0.1
+taking out 0.9
+total wholewheat: 10551 detected wholewheat: 10386 accuracy: 98.4363153904473%
+total groats: 82624 detected groats: 73355 accuracy: 88.78184568835098%
+total broken: 2396 detected broken: 2068 accuracy: 86.31622861910722%
+completed iteration in 657.3596 seconds
+
+273.4
+
+taking out 0.75
+taking out 0.15
+taking out 0.9
+total wholewheat: 12272 detected wholewheat: 12042 accuracy: 98.12596757109101%
+total groats: 77775 detected groats: 70666 accuracy: 90.85964822053076%
+total broken: 2549 detected broken: 2119 accuracy: 83.13725490196079%
+completed iteration in 650.6207 seconds
+
+272

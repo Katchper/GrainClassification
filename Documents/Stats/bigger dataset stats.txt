@@ -1,0 +1,21 @@
+broken 2 + ratio of 80:10 40:60 90:10 90:10 wholegrain, groats, broken, broken2
+
+total wholewheat: 10207 detected wholewheat: 9899 accuracy: 96.98275862068965%
+total groats: 54633 detected groats: 51453 accuracy: 94.17944869495186%
+total broken: 3793 detected broken: 3270 accuracy: 86.21507643647865%
+
+total wholewheat: 10414 detected wholewheat: 9994 accuracy: 95.96735477676428%
+total groats: 55643 detected groats: 52596 accuracy: 94.52411760477321%
+total broken: 3778 detected broken: 3239 accuracy: 85.7369674517068%
+
+total wholewheat: 10261 detected wholewheat: 9866 accuracy: 96.15084778795556%
+total groats: 55230 detected groats: 49180 accuracy: 89.04600677155945%
+total broken: 3626 detected broken: 3254 accuracy: 89.74358974358975%
+
+total wholewheat: 10511 detected wholewheat: 10333 accuracy: 98.30669710806697%
+total groats: 55446 detected groats: 51042 accuracy: 92.0572799249734%
+total broken: 3832 detected broken: 3227 accuracy: 84.21601878424211%
+
+total wholewheat: 10279 detected wholewheat: 9932 accuracy: 96.62451361867704%
+total groats: 54791 detected groats: 50999 accuracy: 93.07928164695576%
+total broken: 3683 detected broken: 3217 accuracy: 87.35070575461455%

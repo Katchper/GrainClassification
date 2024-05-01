@@ -3,9 +3,9 @@ from scipy.io import arff
 import numpy as np
 from matplotlib.widgets import CheckButtons
 
-arff_file_path = '../MainBuild/FileMethods/TrainingData/training_data.arff'
+arff_file_path = '../MainBuild/FileMethods/TrainingData/training_dataTemp3.arff'
 data, meta = arff.loadarff(arff_file_path)
-hue_values = data['hue']
+hue_values = data['rectangularity']
 class_labels = data['class']
 
 # Replace x and y with your desired range for the random numbers
@@ -32,7 +32,7 @@ wholegrain_hist, _, _ = ax.hist(wholegrain_hues, bins=200, color='orange', alpha
 broken_hist, _, _ = ax.hist(broken_hues, bins=200, color='blue', alpha=0.5, label='Broken')
 groats_hist, _, _ = ax.hist(groats_hues, bins=200, color='green', alpha=0.5, label='Groats')
 
-custom_ticks_x = np.linspace(0, 80, 21)
+custom_ticks_x = np.linspace(0, 1, 21)
 plt.xticks(custom_ticks_x)
 # Add labels and title
 plt.xlabel('Hue')

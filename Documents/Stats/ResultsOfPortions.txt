@@ -1,0 +1,291 @@
+C:\Users\Katch\Desktop\GrainClassification\venv\Scripts\python.exe C:\Users\Katch\Desktop\GrainClassification\Code\Prototype\MainBuild\main.py 
+DEBUG:weka.core.jvm:Adding bundled jars
+DEBUG:weka.core.jvm:Classpath=['C:\\Users\\Katch\\Desktop\\GrainClassification\\venv\\Lib\\site-packages\\javabridge\\jars\\rhino-1.7R4.jar', 'C:\\Users\\Katch\\Desktop\\GrainClassification\\venv\\Lib\\site-packages\\javabridge\\jars\\runnablequeue.jar', 'C:\\Users\\Katch\\Desktop\\GrainClassification\\venv\\Lib\\site-packages\\javabridge\\jars\\cpython.jar', 'C:\\Users\\Katch\\Desktop\\GrainClassification\\venv\\lib\\site-packages\\weka\\lib\\arpack_combined.jar', 'C:\\Users\\Katch\\Desktop\\GrainClassification\\venv\\lib\\site-packages\\weka\\lib\\core.jar', 'C:\\Users\\Katch\\Desktop\\GrainClassification\\venv\\lib\\site-packages\\weka\\lib\\mtj.jar', 'C:\\Users\\Katch\\Desktop\\GrainClassification\\venv\\lib\\site-packages\\weka\\lib\\python-weka-wrapper.jar', 'C:\\Users\\Katch\\Desktop\\GrainClassification\\venv\\lib\\site-packages\\weka\\lib\\weka.jar']
+DEBUG:weka.core.jvm:MaxHeapSize=8192m
+DEBUG:weka.core.jvm:Package support disabled
+Apr 19, 2024 4:08:04 AM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Apr 19, 2024 4:08:04 AM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+taking out 0.4
+taking out 0.1
+taking out 0.9
+total wholewheat: 30586 detected wholewheat: 29102 accuracy: 95.14826560303396%
+total groats: 82679 detected groats: 64570 accuracy: 78.09748427672956%
+total broken: 2754 detected broken: 2477 accuracy: 89.94555353901997%
+completed iteration in 618.9690 seconds
+taking out 0.4
+taking out 0.2
+taking out 0.9
+total wholewheat: 30153 detected wholewheat: 29494 accuracy: 97.8145519665716%
+total groats: 73240 detected groats: 67210 accuracy: 91.76690651411094%
+total broken: 2245 detected broken: 1882 accuracy: 83.83793410507569%
+completed iteration in 623.7168 seconds
+taking out 0.4
+taking out 0.30000000000000004
+taking out 0.9
+total wholewheat: 30437 detected wholewheat: 29464 accuracy: 96.8033379328471%
+total groats: 64223 detected groats: 60865 accuracy: 94.7714250124564%
+total broken: 2513 detected broken: 2054 accuracy: 81.74224343675418%
+completed iteration in 624.5338 seconds
+taking out 0.4
+taking out 0.4
+taking out 0.9
+total wholewheat: 30903 detected wholewheat: 29555 accuracy: 95.63810509966348%
+total groats: 54532 detected groats: 52272 accuracy: 95.85572038948894%
+total broken: 2287 detected broken: 1792 accuracy: 78.36538461538461%
+completed iteration in 636.2531 seconds
+taking out 0.4
+taking out 0.5
+taking out 0.9
+total wholewheat: 30139 detected wholewheat: 28764 accuracy: 95.43795620437956%
+total groats: 45964 detected groats: 43627 accuracy: 94.9156967257696%
+total broken: 2497 detected broken: 2079 accuracy: 83.2666132906325%
+completed iteration in 638.8670 seconds
+taking out 0.4
+taking out 0.6
+taking out 0.9
+total wholewheat: 30867 detected wholewheat: 29603 accuracy: 95.9051444861993%
+total groats: 36265 detected groats: 33895 accuracy: 93.46495339987867%
+total broken: 2790 detected broken: 2325 accuracy: 83.33930490863489%
+completed iteration in 645.2091 seconds
+taking out 0.4
+taking out 0.7000000000000001
+taking out 0.9
+total wholewheat: 30563 detected wholewheat: 29217 accuracy: 95.59612616149718%
+total groats: 26940 detected groats: 25703 accuracy: 95.4084852084184%
+total broken: 2747 detected broken: 2250 accuracy: 81.91411935953421%
+completed iteration in 650.0486 seconds
+taking out 0.4
+taking out 0.8
+taking out 0.9
+total wholewheat: 30542 detected wholewheat: 28918 accuracy: 94.68290606685656%
+total groats: 18221 detected groats: 17627 accuracy: 96.74020414883108%
+total broken: 2588 detected broken: 2056 accuracy: 79.4515256855929%
+completed iteration in 654.3781 seconds
+taking out 0.5
+taking out 0.1
+taking out 0.9
+total wholewheat: 25509 detected wholewheat: 25040 accuracy: 98.16150529204234%
+total groats: 82380 detected groats: 72108 accuracy: 87.53110547334944%
+total broken: 2339 detected broken: 1930 accuracy: 82.52136752136752%
+completed iteration in 612.8650 seconds
+taking out 0.5
+taking out 0.2
+taking out 0.9
+total wholewheat: 25541 detected wholewheat: 24771 accuracy: 96.98535745047373%
+total groats: 73151 detected groats: 67206 accuracy: 91.87308617672791%
+total broken: 2259 detected broken: 1878 accuracy: 83.14159292035399%
+completed iteration in 622.2581 seconds
+taking out 0.5
+taking out 0.30000000000000004
+taking out 0.9
+total wholewheat: 25788 detected wholewheat: 24926 accuracy: 96.6574896273605%
+total groats: 64076 detected groats: 60334 accuracy: 94.16015106824601%
+total broken: 2258 detected broken: 1855 accuracy: 82.16024789729968%
+completed iteration in 633.5810 seconds
+taking out 0.5
+taking out 0.4
+taking out 0.9
+total wholewheat: 25284 detected wholewheat: 23457 accuracy: 92.77437215740557%
+total groats: 55177 detected groats: 52897 accuracy: 95.8679183732647%
+total broken: 2396 detected broken: 1987 accuracy: 82.93700458906967%
+completed iteration in 635.8577 seconds
+taking out 0.5
+taking out 0.5
+taking out 0.9
+total wholewheat: 25428 detected wholewheat: 24680 accuracy: 97.05847654253019%
+total groats: 46017 detected groats: 42202 accuracy: 91.70976574383937%
+total broken: 2386 detected broken: 1988 accuracy: 83.32635106828656%
+completed iteration in 645.8718 seconds
+taking out 0.5
+taking out 0.6
+taking out 0.9
+total wholewheat: 25940 detected wholewheat: 24796 accuracy: 95.58999267568714%
+total groats: 36037 detected groats: 34849 accuracy: 96.70347966035851%
+total broken: 2328 detected broken: 1877 accuracy: 80.63546586517819%
+completed iteration in 647.8433 seconds
+taking out 0.5
+taking out 0.7000000000000001
+taking out 0.9
+total wholewheat: 25386 detected wholewheat: 24254 accuracy: 95.54102493402135%
+total groats: 27286 detected groats: 26552 accuracy: 97.31007439440026%
+total broken: 2420 detected broken: 1860 accuracy: 76.8690623709211%
+completed iteration in 656.7222 seconds
+taking out 0.5
+taking out 0.8
+taking out 0.9
+total wholewheat: 25746 detected wholewheat: 24406 accuracy: 94.7955101565231%
+total groats: 18003 detected groats: 17447 accuracy: 96.91179737836036%
+total broken: 2237 detected broken: 1694 accuracy: 75.73726541554959%
+completed iteration in 658.3096 seconds
+taking out 0.6000000000000001
+taking out 0.1
+taking out 0.9
+total wholewheat: 20319 detected wholewheat: 19673 accuracy: 96.82086614173228%
+total groats: 82621 detected groats: 71873 accuracy: 86.99135823388444%
+total broken: 2425 detected broken: 2123 accuracy: 87.5515251442704%
+completed iteration in 621.6210 seconds
+taking out 0.6000000000000001
+taking out 0.2
+taking out 0.9
+total wholewheat: 20477 detected wholewheat: 20039 accuracy: 97.86111924992676%
+total groats: 73275 detected groats: 65426 accuracy: 89.28844369234129%
+total broken: 2524 detected broken: 2174 accuracy: 86.13861386138613%
+completed iteration in 631.3255 seconds
+taking out 0.6000000000000001
+taking out 0.30000000000000004
+taking out 0.9
+total wholewheat: 20394 detected wholewheat: 19678 accuracy: 96.48933562147585%
+total groats: 64211 detected groats: 57839 accuracy: 90.07662119230051%
+total broken: 2446 detected broken: 2105 accuracy: 86.06456885982836%
+completed iteration in 633.8354 seconds
+taking out 0.6000000000000001
+taking out 0.4
+taking out 0.9
+total wholewheat: 20449 detected wholewheat: 19878 accuracy: 97.20782396088019%
+total groats: 55076 detected groats: 51769 accuracy: 93.99567877698495%
+total broken: 2442 detected broken: 1971 accuracy: 80.72042570609906%
+completed iteration in 640.6200 seconds
+taking out 0.6000000000000001
+taking out 0.5
+taking out 0.9
+total wholewheat: 19834 detected wholewheat: 19111 accuracy: 96.3549281572977%
+total groats: 45454 detected groats: 43437 accuracy: 95.56264437355625%
+total broken: 2411 detected broken: 1952 accuracy: 80.97014925373134%
+completed iteration in 645.0666 seconds
+taking out 0.6000000000000001
+taking out 0.6
+taking out 0.9
+total wholewheat: 20564 detected wholewheat: 20066 accuracy: 97.5784099197666%
+total groats: 36372 detected groats: 35097 accuracy: 96.49465262694856%
+total broken: 2420 detected broken: 1845 accuracy: 76.24948368442791%
+completed iteration in 650.7101 seconds
+taking out 0.6000000000000001
+taking out 0.7000000000000001
+taking out 0.9
+total wholewheat: 20490 detected wholewheat: 19458 accuracy: 94.96364257478893%
+total groats: 27367 detected groats: 26270 accuracy: 95.99166910260158%
+total broken: 2546 detected broken: 2046 accuracy: 80.36906164114644%
+completed iteration in 655.7963 seconds
+taking out 0.6000000000000001
+taking out 0.8
+taking out 0.9
+total wholewheat: 20811 detected wholewheat: 19695 accuracy: 94.63770901403036%
+total groats: 18324 detected groats: 17845 accuracy: 97.38608458390178%
+total broken: 2757 detected broken: 2044 accuracy: 74.14793328498912%
+completed iteration in 662.0089 seconds
+taking out 0.7000000000000001
+taking out 0.1
+taking out 0.9
+total wholewheat: 15390 detected wholewheat: 15040 accuracy: 97.72594373335066%
+total groats: 82327 detected groats: 71025 accuracy: 86.27198522981246%
+total broken: 2603 detected broken: 2278 accuracy: 87.51920122887866%
+completed iteration in 623.5830 seconds
+taking out 0.7000000000000001
+taking out 0.2
+taking out 0.9
+total wholewheat: 15389 detected wholewheat: 14921 accuracy: 96.95906432748538%
+total groats: 72937 detected groats: 67155 accuracy: 92.0727192958403%
+total broken: 2378 detected broken: 1953 accuracy: 82.13535098781001%
+completed iteration in 633.2150 seconds
+taking out 0.7000000000000001
+taking out 0.30000000000000004
+taking out 0.9
+total wholewheat: 15186 detected wholewheat: 14529 accuracy: 95.67393165207085%
+total groats: 64726 detected groats: 59072 accuracy: 91.26485083504565%
+total broken: 2521 detected broken: 2188 accuracy: 86.79619349722442%
+completed iteration in 634.6535 seconds
+taking out 0.7000000000000001
+taking out 0.4
+taking out 0.9
+total wholewheat: 15125 detected wholewheat: 14636 accuracy: 96.76715589051965%
+total groats: 55085 detected groats: 52358 accuracy: 95.04955887158262%
+total broken: 2394 detected broken: 1936 accuracy: 80.87682672233821%
+completed iteration in 643.2946 seconds
+taking out 0.7000000000000001
+taking out 0.5
+taking out 0.9
+total wholewheat: 15406 detected wholewheat: 15039 accuracy: 97.61796585967417%
+total groats: 45573 detected groats: 43876 accuracy: 96.27638565848949%
+total broken: 2303 detected broken: 1785 accuracy: 77.51736111111111%
+completed iteration in 651.1794 seconds
+taking out 0.7000000000000001
+taking out 0.6
+taking out 0.9
+total wholewheat: 14790 detected wholewheat: 14199 accuracy: 96.00432695558109%
+total groats: 36817 detected groats: 34941 accuracy: 94.90466619588244%
+total broken: 2552 detected broken: 2102 accuracy: 82.37367802585194%
+completed iteration in 654.2301 seconds
+taking out 0.7000000000000001
+taking out 0.7000000000000001
+taking out 0.9
+total wholewheat: 15447 detected wholewheat: 14832 accuracy: 96.0189021232522%
+total groats: 27491 detected groats: 26312 accuracy: 95.71147970318638%
+total broken: 2615 detected broken: 2069 accuracy: 79.12844036697247%
+completed iteration in 661.9511 seconds
+taking out 0.7000000000000001
+taking out 0.8
+taking out 0.9
+total wholewheat: 15835 detected wholewheat: 15453 accuracy: 97.58777469057843%
+total groats: 18575 detected groats: 17895 accuracy: 96.33936261843239%
+total broken: 2346 detected broken: 1769 accuracy: 75.4154239454623%
+completed iteration in 663.3448 seconds
+taking out 0.8
+taking out 0.1
+taking out 0.9
+total wholewheat: 10207 detected wholewheat: 9905 accuracy: 97.04153605015674%
+total groats: 82345 detected groats: 74436 accuracy: 90.39540475554368%
+total broken: 2717 detected broken: 2333 accuracy: 85.8719646799117%
+completed iteration in 628.1771 seconds
+taking out 0.8
+taking out 0.2
+taking out 0.9
+total wholewheat: 10263 detected wholewheat: 9970 accuracy: 97.14536243180046%
+total groats: 73575 detected groats: 63052 accuracy: 85.69778188539742%
+total broken: 2177 detected broken: 1925 accuracy: 88.42975206611571%
+completed iteration in 631.7098 seconds
+taking out 0.8
+taking out 0.30000000000000004
+taking out 0.9
+total wholewheat: 10336 detected wholewheat: 10076 accuracy: 97.48476347102641%
+total groats: 64498 detected groats: 58779 accuracy: 91.13319586350175%
+total broken: 2348 detected broken: 1970 accuracy: 83.9080459770115%
+completed iteration in 639.8507 seconds
+taking out 0.8
+taking out 0.4
+taking out 0.9
+total wholewheat: 10301 detected wholewheat: 10029 accuracy: 97.35973597359737%
+total groats: 55228 detected groats: 51777 accuracy: 93.75147114740444%
+total broken: 2381 detected broken: 1953 accuracy: 82.03190596137699%
+completed iteration in 643.1943 seconds
+taking out 0.8
+taking out 0.5
+taking out 0.9
+total wholewheat: 10275 detected wholewheat: 10023 accuracy: 97.54768392370572%
+total groats: 45841 detected groats: 43489 accuracy: 94.86933379869988%
+total broken: 2342 detected broken: 1869 accuracy: 79.81220657276995%
+completed iteration in 651.0446 seconds
+taking out 0.8
+taking out 0.6
+taking out 0.9
+total wholewheat: 10177 detected wholewheat: 9896 accuracy: 97.23914325014738%
+total groats: 36950 detected groats: 35551 accuracy: 96.21390490108523%
+total broken: 2463 detected broken: 1860 accuracy: 75.52759740259741%
+completed iteration in 656.5224 seconds
+taking out 0.8
+taking out 0.7000000000000001
+taking out 0.9
+total wholewheat: 10291 detected wholewheat: 10005 accuracy: 97.22114263505635%
+total groats: 27321 detected groats: 25924 accuracy: 94.88690432618402%
+total broken: 2502 detected broken: 2014 accuracy: 80.50339592489013%
+completed iteration in 658.0190 seconds
+taking out 0.8
+taking out 0.8
+taking out 0.9
+total wholewheat: 10293 detected wholewheat: 9998 accuracy: 97.134252962891%
+total groats: 18466 detected groats: 17391 accuracy: 94.17880543672497%
+total broken: 2368 detected broken: 1880 accuracy: 79.4005909666526%
+completed iteration in 666.7750 seconds
+
+Process finished with exit code 0

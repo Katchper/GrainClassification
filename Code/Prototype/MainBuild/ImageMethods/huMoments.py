@@ -218,7 +218,7 @@ def process_image_to_list(image_name, image_dir, grain_name, is_training, range1
             iterations = 3
         if grain_name == "groats":
             rand_range = random.uniform(0.0, 1.0)
-        if rand_range > 0.5:
+        if rand_range > 0.7:
             for i in range(iterations):
                 colour_copy = copy.deepcopy(cropped_image)
                 grey_copy = copy.deepcopy(cropped_image2)
@@ -297,8 +297,8 @@ def process_image_to_values(grain_name, cropped_image, cropped_image2, brightnes
     ret, threshold1 = cv2.threshold(modifImage2, binary_thresh1, 255, cv2.THRESH_BINARY)
     imgTest = cv2.subtract(threshold1, thickerEdge)
     # binary image
-    eroded_final = cv2.erode(imgTest, kernel_2)
-    contours, _ = cv2.findContours(eroded_final, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    #eroded_final = cv2.erode(imgTest, kernel_2)
+    contours, _ = cv2.findContours(imgTest, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     hull_list = []
     for i in range(len(contours)):
