@@ -1,10 +1,18 @@
+"""
+Demo 2
+Author: Kacper Dziedzic ktd1
+Version: 1.1
+
+Demo 2 showing how the machine learning algorithm can interact
+with an image and classify + label the data present within it
+"""
+
 import os
-import cv2
 from random import randint
 from Code.Prototype.MainBuild.ClassObjects.imageClass import ImageData
 from Code.Prototype.MainBuild.machineLearning import startJvm
 from Code.Prototype.MainBuild.main import visualiseMachineLearning
-from Code.Prototype.MainBuild.trainingDataClass import TrainingData
+from Code.Prototype.MainBuild.ClassObjects.trainingDataClass import TrainingData
 
 training_list = []
 training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/wholegrain/", "wholegrain"))

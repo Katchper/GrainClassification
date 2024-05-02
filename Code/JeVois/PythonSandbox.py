@@ -6,31 +6,20 @@ import numpy as np
 import copy
 import math
 
-## Simple example of image processing using OpenCV in Python on JeVois
+## Jevois module for Grain Detection
 #
-# This module is here for you to experiment with Python OpenCV on JeVois.
-#
-# By default, we get the next video frame from the camera as an OpenCV BGR (color) image named 'inimg'.
-# We then apply some image processing to it to create an output BGR image named 'outimg'.
-# We finally add some text drawings to outimg and send it to host over USB.
-#
-# See http://jevois.org/tutorials for tutorials on getting started with programming JeVois in Python without having
-# to install any development software on your host computer.
-#
-# @author Laurent Itti
-# 
-# @videomapping YUYV 352 288 30.0 YUYV 352 288 30.0 JeVois PythonSandbox
-# @email itti\@usc.edu
-# @address University of Southern California, HNB-07A, 3641 Watt Way, Los Angeles, CA 90089-2520, USA
-# @copyright Copyright (C) 2017 by Laurent Itti, iLab and the University of Southern California
-# @mainurl http://jevois.org
-# @supporturl http://jevois.org/doc
-# @otherurl http://iLab.usc.edu
-# @license GPL v3
-# @distribution Unrestricted
-# @restrictions None
-# @ingroup modules
+# This module is made to test the grain detection code tested within the main project files.
+# Since weka isn't available on the JeVois camera an OpenCv machine learning model has been used
+# Model = random trees
+# Author: Kacper Dziedzic ktd1
+# Version: 1.1
+# The module is quite slow due to the resources the machine learning model uses. To get started ensure the JeVois camera
+# starts on a different model before switching to this one.
+##
 
+
+# method used in the main component used to update the contrast and brightness of an image.
+# returns the modified image.
 def updateBrightnessContrast(grayCopy, bright, contr):
         max = 255
         brightnesstemp = int((bright - 0) * (255 - (-255)) / (510 - 0) + (-255))
@@ -50,7 +39,7 @@ class PythonSandbox:
     def __init__(self):
         # Instantiate a JeVois Timer to measure our processing framerate:
         self.timer = jevois.Timer("sandbox", 100, jevois.LOG_INFO)
-        xml_path = pyjevois.share + "/grain/random_forest_model.xml"
+        xml_path = pyjevois.share + "/grain/random_trees_model.xml"
         self.ML_model = cv2.ml.RTrees_load(xml_path)
         self.kernel_1 = np.ones((2, 2), np.uint8)
         self.canny_thresh1 = 115

@@ -1,6 +1,14 @@
+"""
+Demo 3
+Author: Kacper Dziedzic ktd1
+Version: 1.1
+
+Matplotlib visualisation line graph showing the statistics I got from initial ML model tests.
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
-
+# manually set points
 xpoints = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
 ypoints = np.array([93.99, 94.33, 94.35, 94.20, 94.35, 94.23, 94.34, 94.74, 94.23, 94.36, 94.17, 94.91, 94.14, 94.16, 94.39, 94.57, 93.72, 94.85, 94.47, 94.26])
 

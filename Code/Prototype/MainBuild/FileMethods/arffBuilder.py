@@ -1,12 +1,19 @@
-import cv2
-import os
-import numpy as np
+"""
+arffBuilder
+Author: Kacper Dziedzic ktd1
+Version: 1.1
+
+Methods creates to assist in creating ARFF files from scratch.
+"""
 
 
 # open the file with w to overwrite, x to create only if there isn't an existing one.
-
 # HSV value ranges are 0-179, 0-255, 0-255
 # to check on online colour picker multiply H by 2, divide the other 2 by 2.55
+
+# creates a new arff file at the directory within the parameter.
+# Just adds the top level text with nothing else
+
 def createARFF(file_dir):
     file = open(file_dir, "w")
     file.write("@RELATION ImageDataset\n")
@@ -33,11 +40,11 @@ def createARFF(file_dir):
     file.write("@DATA\n")
     file.close()
 
+# method to writing a line straight to ARFF file.
+# Isn't in use due to Pool functions overwriting each other and creating errors
 
 def writeLineToARFF(file_dir, hue, sat, val, hue_moments, circularity, circularity2, rectangularity, aspect, compactness, grain):
     file = open(file_dir, "a")
-    # here is where the data goes in the format: red, blue, green, area, grainType
-    # example is: file.write("45, 32, 67, 1200, groat\n")
     text = (str(hue)
             + ", " + str(sat)
             + ", " + str(val)
@@ -60,8 +67,10 @@ def writeLineToARFF(file_dir, hue, sat, val, hue_moments, circularity, circulari
     file.write(text)
     file.close()
 
-
+# Method which combines creating the arff and writing straight to the file without opening and closing the file several times
+# PARAMETERS: arrays for every value
 def writeArffFromArray(file_dir, hue, sat, val, hue_moments, circularity, circularity2, rectangularity, aspect, compactness, grain):
+    # arff file creation and writing top text
     file = open(file_dir, "w")
     file.write("@RELATION ImageDataset\n")
     file.write("\n")
@@ -86,6 +95,7 @@ def writeArffFromArray(file_dir, hue, sat, val, hue_moments, circularity, circul
     file.write("\n")
     file.write("@DATA\n")
 
+    # for every value within the arrays write a new line of values
     count = 0
     for current in hue:
         text = (str(current)

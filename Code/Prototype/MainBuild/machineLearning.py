@@ -83,5 +83,4 @@ def stopJvm():
 """startJvm()
 machineLearningAlgorithm("FileMethods/TrainingData/training_dataTemp.arff","FileMethods/TrainingData/query_dataTemp.arff")
 stopJvm()
-
 """

@@ -1,17 +1,24 @@
+"""
+Demo 1
+Author: Kacper Dziedzic ktd1
+Version: 1.1
+
+Showing the image preprocessing techniques being used for the project.
+This includes showing the greyscale conversion, applying a threshold and getting contours.
+"""
+
+
 import os
-import cv2
 from random import randint
 from Code.Prototype.MainBuild.ClassObjects.imageClass import ImageData
-from Code.Prototype.MainBuild.ImageMethods.huMoments import process_image_demo
-from Code.Prototype.MainBuild.machineLearning import startJvm
-from Code.Prototype.MainBuild.main import visualiseMachineLearning
-from Code.Prototype.MainBuild.trainingDataClass import TrainingData
+from Code.Prototype.MainBuild.ImageMethods.Main.imagePreprocessing import process_image_demo
+from Code.Prototype.MainBuild.ClassObjects.trainingDataClass import TrainingData
 
 training_list = []
-training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/wholegrain/", "wholegrain"))
-training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat/", "groats"))
-training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken/", "broken"))
-training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken2/", "broken"))
+training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/wholegrain/", "wholegrain", 0.1, 0.1))
+training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/groat/", "groats", 0.1, 0.1))
+training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken/", "broken", 0.1, 0.1))
+training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/broken2/", "broken", 0.1, 0.1))
 
 # training_list.append(TrainingData("C:/Users/Katch/Desktop/grain/testing/", "?"))
 
@@ -44,16 +51,16 @@ for file in training_list:
 training_images = []
 for item in training_list:
     for image in item.training_list:
-        training_images.append(ImageData(item.file_dir, image, item.grain_type))
+        training_images.append(ImageData(item.file_dir, image, item.grain_type, False, 1))
 
 query_images = []
 for item in training_list:
     for image in item.query_list:
-        query_images.append(ImageData(item.file_dir, image, item.grain_type))
+        query_images.append(ImageData(item.file_dir, image, item.grain_type, False, 0))
 
 
-grainType = 3
+grainType = 1
 
 print(training_list[grainType].file_dir)
 
-process_image_demo(training_list[grainType].image_list[0], training_list[grainType].file_dir, training_list[grainType].grain_type)
+process_image_demo(training_list[grainType].image_list[1], training_list[grainType].file_dir, training_list[grainType].grain_type)
