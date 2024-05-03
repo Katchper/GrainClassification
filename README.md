@@ -3,7 +3,7 @@ by Kacper Dziedzic
 
 # Major libraries used:
 latest versions for each:
-opencv-python, weka-wrapper3, numpy, python-javabridge, scipy
+opencv-python, weka-wrapper3, numpy, python-javabridge, scipy, matplotlib
 
 instructions to clone repo
 ---
@@ -21,7 +21,7 @@ this will download the associated jre version to this Jdk
 ---
 - after cloning the project, create a new venv in pycharm using python 3.10.
 ---
-- in the packages menu, download numpy, opencv, python-javabridge then weka-wrapper3, scipy in that order
+- in the packages menu, download numpy, opencv, python-javabridge then weka-wrapper3, scipy, matplotlib in that order
 ---
 - run the main script within Prototype/MainBuild to run the program, the training data is too large and must be downloaded separately
 ---
