@@ -12,6 +12,12 @@ import cv2
 
 # this method will read a file path and image name and return a list of all the grain images within
 # the image as an array.
+"""
+---Original image preprocessing method + data extraction.
+Updated method within imagePreprocessing.---
+
+Only extracts the colour in the centre of the grain + area.
+"""
 def read_image(file_path, image_path, grain_name):
     # binary image
     original_image = cv2.imread(file_path + image_path, cv2.IMREAD_GRAYSCALE)
@@ -56,7 +62,9 @@ def read_image(file_path, image_path, grain_name):
 
     return colour_list, area_list, grain_list
 
-# go through every image in the folder to return a final array of all the images.
+"""
+Gets a list of all the image names from within a folder
+"""
 def getDataSet(images, data):
     data_set = []
     for img in images:
@@ -64,7 +72,10 @@ def getDataSet(images, data):
         data_set.extend(read_image(data, img))
     return data_set
 
-# get all the images and display 3 example grains.
+"""
+Method to test if the grains contours are properly extracted, 
+displays 3 grains from an image
+"""
 def testDataSet():
     training_data = getDataSet('groats')
 
@@ -76,8 +87,10 @@ def testDataSet():
     cv2.destroyAllWindows()
     print(training_data)
 
-# get one grains colour values and return it.
-# it currently gets the centre.
+"""
+---Old unsused centre colour value method---
+obtained the colour from the centre point of the grain.
+"""
 def getGrainValues(images_test):
     for image in images_test:
         height, width, _ = image.shape
@@ -88,8 +101,10 @@ def getGrainValues(images_test):
         # get the centre of the image
     return 0
 
-def grainContour(image):
-    return
+"""
+takes an image, applies image preprocessing, gets contours, extracts values, tests against ML model then
+displays the final image which includes the predictions made using the machine learning model
+"""
 
 def displayImage(file_path, image_path, predictions):
     original_image = cv2.imread(file_path + image_path, cv2.IMREAD_GRAYSCALE)

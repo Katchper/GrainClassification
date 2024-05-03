@@ -1,11 +1,15 @@
-import copy
-import time
+"""
+CannyEdgeTester
+Author: Kacper Dziedzic ktd1
+Version: 1.1
 
+Code to test out preset values for image preprocessing, namely the canny edge.
+"""
+
+import copy
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
 
-from Code.Prototype.MainBuild.FileMethods.arffBuilder import writeLineToARFF
 thresh1 = 0
 thresh2 = 0
 thresh3 = 0
@@ -19,6 +23,10 @@ brightness = 0
 
 # each change updates everything else
 # shows contours and a dot in each contour
+
+"""
+methods to update the global variables and update the screen
+"""
 def update_contrast(contrast1):
     global contrast
     contrast = contrast1
@@ -45,6 +53,10 @@ def update_threshold4(threshold4):
     global thresh4
     thresh4 = threshold4
     updateScreen()
+
+"""
+Updates the images displayed by using the values from the sliders.
+"""
 def updateScreen():
     cannyEdge = cv2.Canny(original_image[1255:3400, 160:2350], thresh3, thresh4)
    #cv2.imshow('CannyEdgeDetection', cannyEdge)
@@ -53,6 +65,9 @@ def updateScreen():
     #ret, imgTest = cv2.threshold(out, thresh1, thresh2, cv2.THRESH_BINARY)
     cv2.imshow("Contour", imgTest)
 
+"""
+Contrast brightness updater
+"""
 def updateScreen2():
 
     brightnesstemp = int((brightness - 0) * (255 - (-255)) / (510 - 0) + (-255))

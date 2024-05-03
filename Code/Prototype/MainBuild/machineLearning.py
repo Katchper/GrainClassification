@@ -1,3 +1,11 @@
+"""
+MachineLearning
+Author: Kacper Dziedzic ktd1
+Version: 1.1
+
+the weka wrapper code creating machine learning models and testing them
+"""
+
 import weka.core.jvm as jvm
 from weka.core.converters import Loader
 from weka.classifiers import Classifier
@@ -8,9 +16,17 @@ from weka.classifiers import Classifier
 #generateQueryFile()
 #print("done")
 
+"""
+start a Java Virtual Machine with 8GB of memory
+"""
 def startJvm():
     jvm.start(max_heap_size="8192m")
 
+"""
+machine learning algorithm currently set to = Random forest
+creates the model, trains it on the data at the parameter and
+tests it against the data at the query parameter
+"""
 def machineLearningAlgorithm(training, query):
     # the memory allocated to the machine learning model (more usually makes it faster)
 
@@ -76,7 +92,9 @@ def machineLearningAlgorithm(training, query):
     print("total groats: " + str(totalGroat-1) + " detected groats: " + str(detectedGroat-1) + " accuracy: " + str((detectedGroat / totalGroat) * 100) + "%")
     print("total broken: " + str(totalBroken-1) + " detected broken: " + str(detectedBroken-1) + " accuracy: " + str((detectedBroken / totalBroken) * 100) + "%")
     return prediction_list
-
+"""
+stop the JVM
+"""
 def stopJvm():
     jvm.stop()
 

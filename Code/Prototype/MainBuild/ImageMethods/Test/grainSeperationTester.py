@@ -1,14 +1,17 @@
-import copy
-import time
-from multiprocessing import Pool
+"""
+grainSeperationTester
+Author: Kacper Dziedzic ktd1
+Version: 1.1
 
+Code to test out the several values corresponding to image preprocessing
+Gives the used trackbars to edit the values, and they get updated immediately
+"""
+
+import copy
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
-from numpy import sort
 
-from Code.Prototype.MainBuild.FileMethods.arffBuilder import writeLineToARFF
-
+# the values that can get changed
 canny_thresh1 = 115
 canny_thresh2 = 208
 dilate_canny = 1
@@ -27,13 +30,7 @@ brightness2 = 203
 
 max_area = 10000
 
-# canny edge detection thresholds
-# i need sliders for the contrast, brightness
-# the 2 threshold values
-
-# each change updates everything else
-# shows contours and a dot in each contour
-
+# update for every global variable and updates the screen right after
 def update_erosion1(erosionTemp):
     global erosion1
     erosion1 = erosionTemp
@@ -97,7 +94,9 @@ def update_threshold4(threshold4):
     canny_thresh2 = threshold4
     updateScreen()
 
-
+"""
+method which applies the new values to the preprocessing on the original image and displays the result
+"""
 def updateScreen():
     tempMod1 = updateBrightnessContrast(brightness1, contrast1)
 
@@ -128,7 +127,9 @@ def updateScreen():
     # image2 = cv2.cvtColor(thickerEdge, cv2.COLOR_BGR2RGB)
     # image3 = cv2.cvtColor(threshold1, cv2.COLOR_BGR2RGB)
 
-
+"""
+updates brightness and contrast
+"""
 def updateBrightnessContrast(bright, contr):
     max = 255
     brightnesstemp = int((bright - 0) * (255 - (-255)) / (510 - 0) + (-255))
@@ -142,6 +143,9 @@ def updateBrightnessContrast(bright, contr):
     caltest = cv2.addWeighted(caltest, Alpha22, caltest, 0, Gamma22)
     return caltest
 
+"""
+obtains the contours of the grains and displays them. 
+"""
 def contoursOutlines(finalImage):
     testImg = copy.deepcopy(colourCopy)
     eroded_final = cv2.erode(finalImage, kernel_2)
@@ -173,11 +177,11 @@ def contoursOutlines(finalImage):
     #return 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 
-original_image = cv2.imread("C:/Users/Katch/Desktop/grain/broken2/BrokenGroats001.tif", cv2.IMREAD_GRAYSCALE)
+original_image = cv2.imread("C:/Users/Katch/Desktop/grain/broken/broken over 1_5mm001.tif", cv2.IMREAD_GRAYSCALE)
 cropped_image = original_image[1260:3400, 170:2350]
 grayCopy = copy.deepcopy(cropped_image)
 # colour image
-colour_image = cv2.imread("C:/Users/Katch/Desktop/grain/broken2/BrokenGroats001.tif")
+colour_image = cv2.imread("C:/Users/Katch/Desktop/grain/broken/broken over 1_5mm001.tif")
 cropped_image2 = colour_image[1260:3400, 170:2350]
 
 colourCopy = copy.deepcopy(cropped_image2)
@@ -191,7 +195,7 @@ cv2.imshow("final", cropped_image2)
 cv2.namedWindow("contours", cv2.WINDOW_NORMAL)
 cv2.imshow("contours", cropped_image2)
 #updateScreen()
-
+# all the sliders
 windowName = "slidersMenu"
 cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
 cv2.resizeWindow(windowName, 500,500)
@@ -206,7 +210,9 @@ cv2.createTrackbar('Thresh2', windowName,  binary_thresh2, 255, update_threshold
 cv2.createTrackbar('MaxArea', windowName,  max_area, 25000, update_area)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
+"""
+pool method to get the total number of contours from update screena and output them to console.
+"""
 def poolMethod(contrastCount1, brightnessCount1, cannyCount11, cannyCount21, dilationCount1, erosCount11, erosCount21,
                threshCount11):
     global contrast1
@@ -233,7 +239,8 @@ def process(args):
     return poolMethod(*args)
 
 
-# Plot images
+# testing method for getting optimal image preprocessing automatically
+# this is however too inneficient due to the sheer scale of values.
 
 if __name__ == '__main__':
     print("")

@@ -1,8 +1,16 @@
+"""
+ContourDetectionTest
+Author: Kacper Dziedzic ktd1
+Version: 1.1
+
+Code to test out basic thresholding to get the grains and display the minimum rectangle area of contours.
+"""
+
 import cv2
 import numpy as np
 
 # Read the original image
-original_image = cv2.imread("C:/Users/Katch/Desktop/Major Project/grain photos/broken/broken over 1_5mm001.tif")
+original_image = cv2.imread("C:/Users/Katch/Desktop/grain/broken/broken over 1_5mm001.tif")
 
 cropped_image = original_image[1220:3400, 160:2350]
 

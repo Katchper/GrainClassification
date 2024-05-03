@@ -1,4 +1,11 @@
+"""
+imagePreprocessing
+Author: Kacper Dziedzic ktd1
+Version: 1.1
 
+Image preprocessing and methods used to extract features and values to train
+a machine learning model.
+"""
 
 import copy
 import math
@@ -8,7 +15,14 @@ import cv2
 import numpy as np
 
 from Code.Prototype.MainBuild.FileMethods.arffBuilder import writeLineToARFF
+"""
+Method to update contrast and brightness
 
+Takes in the original image and values to change by,
+applies the values to every pixel within the image,
+returns the final updated image.
+
+"""
 def updateBrightnessContrast(grayCopy, bright, contr):
     max = 255
     brightnesstemp = int((bright - 0) * (255 - (-255)) / (510 - 0) + (-255))
@@ -21,7 +35,15 @@ def updateBrightnessContrast(grayCopy, bright, contr):
     Gamma22 = 127 * (1 - Alpha22)
     caltest = cv2.addWeighted(caltest, Alpha22, caltest, 0, Gamma22)
     return caltest
+"""
+---Outdated processing image method only used for demo---
 
+It uses presets obtained from testing and uses them to apply a 
+variety of image preprocessing techniques.
+
+Extracts values which the method returns to be used to train
+a machine learning model.
+"""
 def process_image(file_dir, image_name, image_dir, grain_name, visual):
     if grain_name == "wholegrain":
         max_area = 8000
@@ -155,7 +177,18 @@ def process_image(file_dir, image_name, image_dir, grain_name, visual):
 visual_testing = False
 
 
-# process_image_to_values is the method main uses
+"""
+main method for processing images.
+
+applies several image preprocessing techniques together to improve grain separation
+extracts several values including HSV, aspect ratio, circularity...
+adds them to a list.
+
+completes extra iterations for augmented images and adds to list.
+different grains have different augmentation configs.
+
+returns a list of all the values within the image
+"""
 
 def process_image_to_list(image_name, image_dir, grain_name, is_training, range1):
     if grain_name == "wholegrain":
@@ -273,7 +306,13 @@ def process_image_to_list(image_name, image_dir, grain_name, is_training, range1
     #toccy = time.perf_counter()
     #print(f"grain done in {toccy - ticcy:0.4f} seconds")
     return hue_list, sat_list, val_list, hm_list, circularity_list, circularity2_list, rectangularity_list, aspect_ratio_list, compact_list, grain_name_list
+"""
+dedicated method to converting an image into values.
 
+applies several image preprocessing techniques together to improve grain separation
+extracts several values including HSV, aspect ratio, circularity...
+adds them to a list.
+"""
 def process_image_to_values(grain_name, cropped_image, cropped_image2, brightness1, brightness2, contrast1, contrast2, canny_thresh1, canny_thresh2, kernel_2, dilate_canny, binary_thresh1, min_area, max_area):
     hue_list = []
     sat_list = []
@@ -375,7 +414,10 @@ def process_image_to_values(grain_name, cropped_image, cropped_image2, brightnes
 
     return hue_list, sat_list, val_list, hm_list, circularity_list, circularity2_list, rectangularity_list, aspect_ratio_list, compact_list, grain_name_list
 
-
+"""
+process image demo which displays the image preprocessing and contours. 
+Used within demo 1
+"""
 def process_image_demo(image_name, image_dir, grain_name):
     print(image_dir)
     original_image = cv2.imread(image_dir + image_name, cv2.IMREAD_GRAYSCALE)

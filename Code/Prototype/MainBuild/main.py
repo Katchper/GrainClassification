@@ -1,7 +1,7 @@
 """
 Main method file
 Author: Kacper Dziedzic ktd1
-Version: 1.12
+Version: 1.1
 """
 
 

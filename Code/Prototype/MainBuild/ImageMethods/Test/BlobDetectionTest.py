@@ -1,13 +1,17 @@
-# Python program to explain
-# mask inversion on a b/w image.
+"""
+BlobDetectionTest
+Author: Kacper Dziedzic ktd1
+Version: 1.1
 
-# importing cv2 and numpy library
+Code to test out Blob Detection for image preprocessing
+"""
+
 import cv2
 import numpy as np
 
 # Reading an image
-img = cv2.imread("C:/Users/Katch/Desktop/Major Project/grain photos/broken/broken over 1_5mm001.tif")
-img = cv2.resize(img, (600, 600))
+img = cv2.imread("C:/Users/Katch/Desktop/grain/broken/broken over 1_5mm001.tif")
+img = cv2.resize(img, (1000, 1000))
 
 # The kernel to be used for dilation purpose
 kernel = np.ones((1, 1), np.uint8)
