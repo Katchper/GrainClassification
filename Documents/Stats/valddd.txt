@@ -1,0 +1,13 @@
+brightness 0-200 5
+contrast 0-200 5
+canny1 100-250 5
+canny2 100-250 5
+thresh2 55-60
+dilation 0-2
+
+79 contrast
+335 brightness
+177 canny1
+140 canny2
+1 dilation
+57 thresh2

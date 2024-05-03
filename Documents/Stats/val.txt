@@ -1,0 +1,18 @@
+preprocessing is step 1
+
+improving the threshold to include the darker pixels on the grain, brightness + contrast needs tweaking
+threshold values
+
+canny edge detection to seperate the grains
+
+fill the contours
+
+
+brightness contrast: 319, 175
+299, 172
+test canny edge: 280 155
+
+
+methods tested: 
+sobel edge detection
+canny edge + erosion + adding together with original

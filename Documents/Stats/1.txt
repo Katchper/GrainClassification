@@ -1,0 +1,90 @@
+SECTION 1
+
+taking out 0.75
+taking out 0.9
+taking out 0.9
+taking out 0.9
+total wholewheat: 5124 detected wholewheat: 5041 accuracy: 98.38048780487804%
+total groats: 9393 detected groats: 8992 accuracy: 95.7313178624654%
+total broken: 3203 detected broken: 2957 accuracy: 92.32209737827716%
+completed iteration in 2334.3268 seconds
+taking out 0.75
+taking out 0.9
+taking out 0.9
+taking out 0.9
+total wholewheat: 5211 detected wholewheat: 5134 accuracy: 98.52264006139677%
+total groats: 9299 detected groats: 8862 accuracy: 95.3010752688172%
+total broken: 3285 detected broken: 3013 accuracy: 91.72245891661595%
+completed iteration in 2318.7870 seconds
+taking out 0.75
+taking out 0.9
+taking out 0.9
+taking out 0.9
+total wholewheat: 5137 detected wholewheat: 5044 accuracy: 98.18995718178279%
+total groats: 9151 detected groats: 8784 accuracy: 95.98994755244755%
+total broken: 3233 detected broken: 2941 accuracy: 90.97093382807668%
+completed iteration in 2346.9648 seconds
+taking out 0.75
+taking out 0.9
+taking out 0.9
+taking out 0.9
+total wholewheat: 5126 detected wholewheat: 5075 accuracy: 99.00526623756582%
+total groats: 9072 detected groats: 8560 accuracy: 94.35688305962746%
+total broken: 3195 detected broken: 2925 accuracy: 91.55193992490614%
+completed iteration in 2351.3916 seconds
+taking out 0.75
+taking out 0.9
+taking out 0.9
+taking out 0.9
+total wholewheat: 5004 detected wholewheat: 4911 accuracy: 98.14185814185814%
+total groats: 9305 detected groats: 8790 accuracy: 94.46593595529765%
+total broken: 3266 detected broken: 3034 accuracy: 92.89868380777472%
+completed iteration in 2319.8066 seconds
+
+random forests + 4x broken augment + seperate augmenting
+
+SECTION 2
+
+taking out 0.75
+taking out 0.9
+taking out 0.9
+taking out 0.9
+total wholewheat: 4938 detected wholewheat: 4820 accuracy: 97.61085239927111%
+total groats: 9437 detected groats: 8938 accuracy: 94.71286289468107%
+total broken: 3336 detected broken: 3072 accuracy: 92.08870242732993%
+completed iteration in 2151.5019 seconds
+taking out 0.75
+taking out 0.9
+taking out 0.9
+taking out 0.9
+total wholewheat: 4981 detected wholewheat: 4912 accuracy: 98.61501405058209%
+total groats: 9567 detected groats: 9173 accuracy: 95.88210702341136%
+total broken: 3319 detected broken: 3063 accuracy: 92.28915662650601%
+completed iteration in 2158.2578 seconds
+taking out 0.75
+taking out 0.9
+taking out 0.9
+taking out 0.9
+total wholewheat: 5077 detected wholewheat: 5009 accuracy: 98.66089011421819%
+total groats: 9194 detected groats: 8846 accuracy: 96.21533442088092%
+total broken: 3423 detected broken: 3161 accuracy: 92.3481308411215%
+completed iteration in 2117.6654 seconds
+taking out 0.75
+taking out 0.9
+taking out 0.9
+taking out 0.9
+total wholewheat: 4905 detected wholewheat: 4790 accuracy: 97.65593151243375%
+total groats: 9261 detected groats: 8845 accuracy: 95.50852947527531%
+total broken: 3268 detected broken: 3000 accuracy: 91.80177424288773%
+completed iteration in 2151.3727 seconds
+taking out 0.75
+taking out 0.9
+taking out 0.9
+taking out 0.9
+total wholewheat: 4939 detected wholewheat: 4846 accuracy: 98.11740890688259%
+total groats: 9095 detected groats: 8830 accuracy: 97.08663148636764%
+total broken: 3241 detected broken: 2995 accuracy: 92.41209130166564%
+completed iteration in 2161.1253 seconds
+
+random forests + 3x broken augment + combined augment
+section 2 had slightly better overall performance meaning the combined augment and less broken data

@@ -1,0 +1,58 @@
+results of various algos 1st attempt:
+cls = Classifier(classname="weka.classifiers.trees.J48", options=["-C", "0.3"])
+total wholewheat: 2180 detected wholewheat: 2051 accuracy: 94.08528198074278%
+total groats: 18388 detected groats: 18069 accuracy: 98.26526727935179%
+total broken: 1740 detected broken: 1178 accuracy: 67.71970132107984%
+
+cls = Classifier(classname="weka.classifiers.trees.RandomForest", options=["-I", "100", "-K", "0", "-S", "1"])
+total wholewheat: 2180 detected wholewheat: 2083 accuracy: 95.55249885373682%
+total groats: 18388 detected groats: 18223 accuracy: 99.10272445483713%
+total broken: 1740 detected broken: 1234 accuracy: 70.93624353819644%
+
+cls = Classifier(classname="weka.classifiers.bayes.NaiveBayes", options=[])
+total wholewheat: 2180 detected wholewheat: 1848 accuracy: 84.77762494268684%
+total groats: 18388 detected groats: 17362 accuracy: 94.42057751916907%
+total broken: 1740 detected broken: 835 accuracy: 48.01838024124066%
+
+cls = Classifier(classname="weka.classifiers.functions.SMO", options=["-C", "1.0", "-L", "0.001", "-P", "1.0E-12", "-N", "0", "-V", "-1", "-W", "1", "-K", "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007"])
+total wholewheat: 2180 detected wholewheat: 1997 accuracy: 91.60935350756534%
+total groats: 18388 detected groats: 18095 accuracy: 98.40665615313503%
+total broken: 1740 detected broken: 987 accuracy: 56.74899483055715%
+
+cls = Classifier(classname="weka.classifiers.lazy.IBk", options=["-K", "3"])
+total wholewheat: 2180 detected wholewheat: 1910 accuracy: 87.62035763411279%
+total groats: 18388 detected groats: 18018 accuracy: 97.98792756539235%
+total broken: 1740 detected broken: 952 accuracy: 54.738655944859275%
+
+-------
+total wholewheat: 1170 detected wholewheat: 1104 accuracy: 94.36379163108455%
+total groats: 9352 detected groats: 9153 accuracy: 97.87234042553192%
+total broken: 1018 detected broken: 747 accuracy: 73.40529931305201%
+
+
+total wholewheat: 1170 detected wholewheat: 1108 accuracy: 94.70538001707942%
+total groats: 9352 detected groats: 9249 accuracy: 98.89874906447129%
+total broken: 1018 detected broken: 762 accuracy: 74.87733071638861%
+
+REDUCED BIAS SET:
+total wholewheat: 904 detected wholewheat: 888 accuracy: 98.23204419889503%
+total groats: 2826 detected groats: 2740 accuracy: 96.95790590732226%
+total broken: 1143 detected broken: 1003 accuracy: 87.76223776223776%
+
+(NOTICE HOW BROKEN STATS INCREASE DRASTICALLY WHEN THERE IS LESS OVERSAMPLING)
+total wholewheat: 971 detected wholewheat: 954 accuracy: 98.25102880658436%
+total groats: 1317 detected groats: 1275 accuracy: 96.81335356600911%
+total broken: 1151 detected broken: 1060 accuracy: 92.10069444444444%
+completed iteration in 360.2069 seconds
+
+
+Reduced Groats more & lowered back to 80:20
+total wholewheat: 2120 detected wholewheat: 2054 accuracy: 96.88826025459689%
+total groats: 1489 detected groats: 1374 accuracy: 92.28187919463086%
+total broken: 1725 detected broken: 1592 accuracy: 92.29432213209734%
+completed iteration in 206.0138 seconds
+
+changed back to 90:10
+total wholewheat: 1070 detected wholewheat: 1055 accuracy: 98.59943977591037%
+total groats: 950 detected groats: 912 accuracy: 96.00420609884333%
+total broken: 1073 detected broken: 959 accuracy: 89.3854748603352%

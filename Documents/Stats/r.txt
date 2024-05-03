@@ -1,0 +1,25 @@
+611.5, 117.15
+
+
+(117.15^2)/(4pi * 611.5)
+1.78598686466
+
+
+4pi * 611.5 / 117.15^2
+
+0.55991453229
+
+
+3082.5, 298.41
+
+(4pi * 3082.5) / 298.41^2
+
+0.43499694206
+
+
+This week:
+
+- extract circularity/rectangularity/elipsity or multiple
+- test out 2 machine learning algorithms 10 tries each
+
+

@@ -1,0 +1,5 @@
+total wholewheat: 4884 detected wholewheat: 4831 accuracy: 98.91504605936541%
+total groats: 9256 detected groats: 8831 accuracy: 95.40887976666306%
+total broken: 3415 detected broken: 3181 accuracy: 93.14988290398126%
+
+random forests
