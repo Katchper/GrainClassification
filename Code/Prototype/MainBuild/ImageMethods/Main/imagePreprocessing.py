@@ -247,9 +247,9 @@ def process_image_to_list(image_name, image_dir, grain_name, is_training, range1
     #image augmentation
     rand_range = 1
     if is_training:
-        iterations = 1
+        iterations = 0
         if grain_name == "broken":
-            iterations = 3
+            iterations = 0
         if grain_name == "groats":
             rand_range = random.uniform(0.0, 1.0)
         if rand_range > 0.7:
@@ -326,7 +326,7 @@ def process_image_to_values(grain_name, cropped_image, cropped_image2, brightnes
     compact_list = []
 
     greyImage = copy.deepcopy(cropped_image)
-    HSV_image = cv2.cvtColor(cropped_image2, cv2.COLOR_BGR2HSV)
+    HSV_image = cv2.cvtColor(cropped_image2, cv2.COLOR_BGR2YCrCb)
 
     # contrast + brightness changes
     modifImage1 = updateBrightnessContrast(greyImage, brightness1, contrast1)

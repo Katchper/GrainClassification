@@ -5,10 +5,12 @@ Version: 1.1
 
 the weka wrapper code creating machine learning models and testing them
 """
-
+import numpy as np
+import weka
 import weka.core.jvm as jvm
-from weka.core.converters import Loader
-from weka.classifiers import Classifier
+from weka.core.converters import Loader, Saver
+from weka.classifiers import Classifier, Evaluation
+from weka.filters import Filter
 
 #from Code.Prototype.MainBuild.FileMethods.loadRandomData import generateQueryFile
 
@@ -40,8 +42,8 @@ def machineLearningAlgorithm(training, query):
     test = loader.load_file(query_dir)
     test.class_is_last()
     #print("training dataset")
-    cls = Classifier(classname="weka.classifiers.trees.RandomForest", options=["-P", "100", "-I", "100", "-num-slots", "1", "-K", "0", "-M", "1.0", "-V", "0.001", "-S", "1", "-num-decimal-places", "5"])
-
+    #cls = Classifier(classname="weka.classifiers.trees.RandomForest", options=["-P", "100", "-I", "100", "-num-slots", "1", "-K", "0", "-M", "1.0", "-V", "0.001", "-S", "1", "-num-decimal-places", "5"])
+    cls = Classifier(classname="weka.classifiers.trees.J48")
     #print(cls.options)
     cls.build_classifier(data)
     #print(cls)
@@ -88,9 +90,10 @@ def machineLearningAlgorithm(training, query):
             correct += 1
     accuracy = (correct/total) * 100
     #print("accuracy this iteration: %" + str(accuracy))
-    print("total wholewheat: " + str(totalWhole-1) + " detected wholewheat: " + str(detectedWhole-1) + " accuracy: " + str((detectedWhole/totalWhole) * 100) + "%")
-    print("total groats: " + str(totalGroat-1) + " detected groats: " + str(detectedGroat-1) + " accuracy: " + str((detectedGroat / totalGroat) * 100) + "%")
-    print("total broken: " + str(totalBroken-1) + " detected broken: " + str(detectedBroken-1) + " accuracy: " + str((detectedBroken / totalBroken) * 100) + "%")
+    #print("total wholewheat: " + str(totalWhole-1) + " detected wholewheat: " + str(detectedWhole-1) + " accuracy: " + str((detectedWhole/totalWhole) * 100) + "%")
+    #print("total groats: " + str(totalGroat-1) + " detected groats: " + str(detectedGroat-1) + " accuracy: " + str((detectedGroat / totalGroat) * 100) + "%")
+    #print("total broken: " + str(totalBroken-1) + " detected broken: " + str(detectedBroken-1) + " accuracy: " + str((detectedBroken / totalBroken) * 100) + "%")
+    print("overall accruacy: " + str((((detectedWhole/totalWhole) * 100) + ((detectedGroat / totalGroat) * 100) + ((detectedBroken / totalBroken) * 100))/3) + "%")
     return prediction_list
 """
 stop the JVM
@@ -99,6 +102,5 @@ def stopJvm():
     jvm.stop()
 
 """startJvm()
-machineLearningAlgorithm("FileMethods/TrainingData/training_dataTemp.arff","FileMethods/TrainingData/query_dataTemp.arff")
-stopJvm()
-"""
+machineLearningAlgorithm("value.arff","tvalue.arff")
+stopJvm()"""

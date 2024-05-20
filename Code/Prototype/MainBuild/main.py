@@ -155,7 +155,7 @@ if __name__ =="__main__":
     startJvm()
 
     #for i in range(6):
-    for x in range(5):
+    for x in range(1):
 
         tic = time.perf_counter()
         training_list = []

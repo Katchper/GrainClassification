@@ -10,10 +10,10 @@ import matplotlib.pyplot as plt
 from scipy.io import arff
 import numpy as np
 
-arff_file_path = '../MainBuild/FileMethods/TrainingData/training_dataTemp.arff'
+arff_file_path = '../MainBuild/FileMethods/TrainingData/training_dataTemp0.arff'
 data, meta = arff.loadarff(arff_file_path)
 # change text here to switch the attribute
-hue_values = data['hueMoment1']
+hue_values = data['circularity2']
 class_labels = data['class']
 
 groats_hues = []
@@ -23,13 +23,13 @@ broken_hues = []
 
 for hue, label in zip(hue_values, class_labels):
     if label == b'wholegrain':
-        if len(wholegrain_hues) < 9000:
+        if len(wholegrain_hues) < 5000:
             wholegrain_hues.append(hue)
     elif label == b'broken':
-        if len(broken_hues) < 9000:
+        if len(broken_hues) < 5000:
             broken_hues.append(hue)
     elif label == b'groats':
-        if len(groats_hues) < 9000:
+        if len(groats_hues) < 5000:
             groats_hues.append(hue)
 
 wholegrain_hues = np.array(wholegrain_hues)
@@ -42,14 +42,14 @@ print(len(broken_hues))
 
 fig, ax = plt.subplots()
 # change the bins to get a more or less blocky histogram
-wholegrain_hist, _, _ = ax.hist(wholegrain_hues, bins=1000, color='orange', alpha=0.5, label='Wholegrain')
-broken_hist, _, _ = ax.hist(broken_hues, bins=1000, color='blue', alpha=0.5, label='Broken')
-groats_hist, _, _ = ax.hist(groats_hues, bins=1000, color='green', alpha=0.5, label='Groats')
-
+wholegrain_hist, _, _ = ax.hist(wholegrain_hues, bins=150, color='orange', alpha=0.5, label='Wholegrain')
+broken_hist, _, _ = ax.hist(broken_hues, bins=150, color='blue', alpha=0.5, label='Broken')
+groats_hist, _, _ = ax.hist(groats_hues, bins=150, color='green', alpha=0.5, label='Groats')
+ax.set_xlim(0, 1)
 # Add labels and title (change titles when changing feature)
-plt.xlabel('huMoment1')
+plt.xlabel('circularity2')
 plt.ylabel('Frequency')
-plt.title('huMoment1 Distribution')
+plt.title('circularity2 Distribution')
 
 legend = leg = ax.legend(fancybox=True, shadow=True)
 

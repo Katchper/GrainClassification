@@ -37,9 +37,9 @@ groats_aspectRatio = np.array(groats_aspectRatio)
 
 fig, ax = plt.subplots()
 # Bins is how many bars are used for the histogram
-wholegrain_hist, _, _ = ax.hist(wholegrain_aspectRatio, bins=1000, color='orange', alpha=0.5, label='Wholegrain')
-broken_hist, _, _ = ax.hist(broken_aspectRatio, bins=1000, color='blue', alpha=0.5, label='Broken')
-groats_hist, _, _ = ax.hist(groats_aspectRatio, bins=1000, color='green', alpha=0.5, label='Groats')
+wholegrain_hist, _, _ = ax.hist(wholegrain_aspectRatio, bins=300, color='orange', alpha=0.5, label='Wholegrain')
+broken_hist, _, _ = ax.hist(broken_aspectRatio, bins=300, color='blue', alpha=0.5, label='Broken')
+groats_hist, _, _ = ax.hist(groats_aspectRatio, bins=300, color='green', alpha=0.5, label='Groats')
 
 # Add labels and title to graph
 plt.xlabel('aspectRatio')

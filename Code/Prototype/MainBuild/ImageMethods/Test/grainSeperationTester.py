@@ -101,28 +101,28 @@ def updateScreen():
     tempMod1 = updateBrightnessContrast(brightness1, contrast1)
 
     tempMod2 = updateBrightnessContrast(brightness2, contrast2)
-    #cv2.imshow("step1", tempMod1)
+    cv2.imshow("step1", tempMod1)
     #
     cannyEdge = cv2.Canny(tempMod1, canny_thresh1, canny_thresh2)
     thickerEdge = cv2.dilate(cannyEdge, kernel_2, iterations=dilate_canny)
-    #cv2.imshow("step2", thickerEdge)
+    cv2.imshow("step2", thickerEdge)
     #
-    #ret3, th4 = cv2.threshold(tempMod2, binary_thresh1, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    ret3, th4 = cv2.threshold(tempMod2, binary_thresh1, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     #cv2.imshow("step3", th4)
     ret, threshold1 = cv2.threshold(tempMod2, binary_thresh2, 255, cv2.THRESH_BINARY)
-    #cv2.imshow("step4", threshold1)
-    #overlay = copy.deepcopy(th4)
+    cv2.imshow("step3", threshold1)
+    overlay = copy.deepcopy(th4)
     imgTest = cv2.subtract(threshold1, thickerEdge)
-    #inner = cv2.erode(imgTest, kernel_2, iterations=erosion1)
-    #cv2.imshow("step5", inner)
+    inner = cv2.erode(imgTest, kernel_2, iterations=erosion1)
+    cv2.imshow("step4", inner)
 
-    #cv2.imshow("step6", imgTest)
-    #erosion = cv2.erode(overlay, kernel_2, iterations=erosion2)
-    #cv2.imshow("step7", erosion)
-    #finalTogether = cv2.add(imgTest, inner)
-    cv2.imshow("contours", imgTest)
+    cv2.imshow("step5", imgTest)
+    erosion = cv2.erode(overlay, kernel_2, iterations=erosion2)
+    cv2.imshow("step6", erosion)
+    finalTogether = cv2.add(imgTest, inner)
+    #cv2.imshow("contours", imgTest)
     return contoursOutlines(imgTest)
-    # final2 = cv2.add(finalTogether, cannyEdge)
+    #final2 = cv2.add(finalTogether, cannyEdge)
     # image1 = cv2.cvtColor(tempMod1, cv2.COLOR_BGR2RGB)
     # image2 = cv2.cvtColor(thickerEdge, cv2.COLOR_BGR2RGB)
     # image3 = cv2.cvtColor(threshold1, cv2.COLOR_BGR2RGB)
@@ -187,14 +187,14 @@ cropped_image2 = colour_image[1260:3400, 170:2350]
 colourCopy = copy.deepcopy(cropped_image2)
 
 kernel_2 = np.ones((2, 2), np.uint8)
-# updateScreen()
+updateScreen()
 ###
 cv2.namedWindow("final", cv2.WINDOW_NORMAL)
 cv2.imshow("final", cropped_image2)
 
-cv2.namedWindow("contours", cv2.WINDOW_NORMAL)
-cv2.imshow("contours", cropped_image2)
-#updateScreen()
+"""cv2.namedWindow("contours", cv2.WINDOW_NORMAL)
+cv2.imshow("contours", cropped_image2)"""
+updateScreen()
 # all the sliders
 windowName = "slidersMenu"
 cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
@@ -242,8 +242,8 @@ def process(args):
 # testing method for getting optimal image preprocessing automatically
 # this is however too inneficient due to the sheer scale of values.
 
-if __name__ == '__main__':
-    print("")
+"""if __name__ == '__main__':
+    print("")"""
 
 """    arguments = []
     for contrastCount in range(50, 200, 25):
